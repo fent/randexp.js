@@ -27,7 +27,80 @@
     pre { background: #000; color: #fff; padding: 15px;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
+
+    code {
+      font-size: 150%;
+    }
+
+    #input, #result, #mod {
+      -webkit-border-radius: 10px;
+         -mox-border-radius: 10px;
+              border-radius: 10px;
+      font-size: 100%;
+      font-weight: bold;
+      padding: 0 3px;
+    }
+
+    #input {
+      width: 50%;
+    }
+
+    #mod {
+      width: 2em;
+    }
+
+    #gen {
+      font-size: 100%;
+      font-weight: bold;
+    }
+
+    #result {
+      border: 2px dashed #ccc;
+      margin-top: 1em;
+      margin-bottom: 2em;
+      width: 100%;
+      min-height: 3em;
+      font-size: 130%;
+      word-wrap: break-word;
+    }
   </style>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://github.com/fent/randexp.js/raw/master/build/randexp.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var field = $('#input'),
+          mod = $('#mod'),
+          result = $('#result'),
+          gen = function() {
+            try {
+              var r = new RegExp(field.val(), mod.val());
+              result.css('color', 'green');
+              result.text(r.gen);
+
+            } catch (err) {
+              result.css('color', 'red');
+              result.text(err.message);
+            }
+          };
+
+      // generate on page load
+      gen();
+
+      // listen for `.gen` button
+      $('#gen').click(gen);
+
+      // filter modifier input
+      mod.on('keydown', function(e) {
+        var c = e.keyCode;
+        if ((c !== 8 && c !== 73 && c !== 77) ||
+          mod.val().toUpperCase()
+            .indexOf(String.fromCharCode(e.keyCode)) !== -1) {
+          e.preventDefault();
+        }
+      });
+    });
+  </script>
 </head>
 
 <body>
@@ -50,56 +123,37 @@
     </div>
 
     
-      <p># Usage
-```js
-require('randexp'); // must require if using node
+    <h2>Usage</h2>
 
-// supports grouping and piping
-/hello+ (world|to you)/.gen;
-// => hellooooooooooooooooooo world
+<script src="https://gist.github.com/1439081.js?file=gistfile1.js"></script>
 
-// classes and ranges and references
-/<([a-z]\w{0,20})>foo<\1>/.gen;
-// => <m5xhdg>foo<m5xhdg>
-
-// wildcard class
-/random stuff: .+/.gen;
-// => random stuff: 湐箻ໜ䫴␩⶛㳸長���邓蕲뤀쑡篷皇硬剈궦佔칗븛뀃匫鴔事좍ﯣ⭼ꝏ䭍詳蒂䥂뽭
-
-// ignore case
-/xxx xtreme dragon warrior xxx/i.gen;
-// => xxx xtReME dRAGON warRiOR xXX
-```
+      <h2>Try it now</h2>
+      <p>
+      <div><code>
+          new RegExp(<input id="input" value="hello+ (world|to you)" />,
+          <input id="mod" value="i" />)<button id="gen">.gen</button>
+      </code></div>
+      <div id="result"></div>
+      </p>
 
 
-# Motivation
-Regular expressions are used in every language, every programmer is familiar with them. Regex can be used to easily express complex strings. What better way to generate a random string than with a tool you can easily use to express the string any way you want?
+      <h2>Motivation</h2>
+      <p>
+      Regular expressions are used in every language, every programmer is familiar with them. Regex can be used to easily express complex strings. What better way to generate a random string than with a tool you can easily use to express the string any way you want?
+      </p>
 
-Thanks to [String-Random](http://search.cpan.org/~steve/String-Random-0.22/lib/String/Random.pm) for giving me the idea to make this in the first place and [randexp](https://github.com/benburkert/randexp) for the nifty little `.gen` syntax.
-
-
-# Limitations
-I wish I could say randexp is guaranteed to generate a string that will always match the given regex. But ONE limitation prevents me. Positionals. You can make a regex object that is guaranteed to never match any string. Such as
-
-```js
-/a^b/m
-```
-
-That will never match any string because it will never be next to the beginning of the expression or a new line character. For now, positionals (`^$\\b\\B`) are ignored. In the above case, randexp will generate the string `ab`.</p>
-    
+      <p>
+      Thanks to [String-Random](http://search.cpan.org/~steve/String-Random-0.22/lib/String/Random.pm) for giving me the idea to make this in the first place and [randexp](https://github.com/benburkert/randexp) for the nifty little `.gen` syntax.
+      </p>
 
     
-
     
       <h2>Install</h2>
-      <p>### Node.js
+      <p>For node.js install with <a href="http://npmjs.org/">npm</a>
 
-    npm install randexp
+      <p><pre>npm install randexp</pre></p>
 
-
-### Browser
-
-Download the [minified version](http://github.com/fent/randexp.js/raw/master/build/randexp.min.js).</p>
+      <p>For use in browsers, download the <a href="http://github.com/fent/randexp.js/raw/master/build/randexp.min.js">minified version</a>.</p>
     
 
     
@@ -111,19 +165,6 @@ Download the [minified version](http://github.com/fent/randexp.js/raw/master/bui
       <h2>Authors</h2>
       <p>Roly Fentanes (roly426@gmail.com)</p>
     
-
-    
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="https://github.com/fent/randexp.js/zipball/master">zip</a> or
-      <a href="https://github.com/fent/randexp.js/tarball/master">tar formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/fent/randexp.js</pre>
-    </p>
 
     <div class="footer">
       get the source code on GitHub : <a href="https://github.com/fent/randexp.js">fent/randexp.js</a>
