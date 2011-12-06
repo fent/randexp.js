@@ -40,6 +40,22 @@ I wish I could say randexp is guaranteed to generate a string that will always m
 
 That will never match any string because it will never be next to the beginning of the expression or a new line character. For now, positionals (`^$\\b\\B`) are ignored. In the above case, randexp will generate the string `ab`.
 
+Classes like the `.` character will match anything except a new line. In this case, a character with a random char code between 0 and 65535 will be generated. If you want to overwrite this function you can do
+
+```js
+var r = /./;
+r._anyRndChar = function() {
+  return the char you want here;
+};
+```
+
+Ranges like `*`, `+`, and `{3,}` have an infinite max range. In this case, randexp looks at its min and adds 100 to it to get a useable max value. If you want to use another int other than 100 you can do
+
+```js
+var r = /(hi)*/;
+r._max = 1000000;
+```
+
 
 # Install
 ### Node.js
