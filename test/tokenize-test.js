@@ -1,6 +1,6 @@
 var   vows = require('vows')
   , assert = require('assert')
-  ,  types = require('../lib/types.js')
+  ,  types = require('../').types
   ;
 
 require('../');
@@ -8,7 +8,7 @@ require('../');
 
 var t = function(r) {
   r.gen;
-  return r._rndexp;
+  return r._randexp;
 };
 
 vows.describe('Tokenize')

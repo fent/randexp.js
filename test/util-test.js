@@ -1,6 +1,7 @@
 var   vows = require('vows')
   , assert = require('assert')
-  ,   util = require('../lib/util.js')
+  ,  types = require('../').types
+  ,   util = require('../').util
   ;
 
 
@@ -224,7 +225,7 @@ vows.describe('inCaseChar')
         
         'returns back a class with both cases': function(topic) {
           assert.deepEqual(topic, {
-              type: util.types.CLASS
+              type: types.CLASS
             , chars: 'bB'
           });
         }
