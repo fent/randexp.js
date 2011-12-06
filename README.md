@@ -1,6 +1,5 @@
 # randexp.js [![Build Status](https://secure.travis-ci.org/fent/randexp.js.png)](http://travis-ci.org/fent/randexp.js)
 
-[short consice explanation]
 randexp will generate a random string that matches a given RegExp Javascript object.
 
 
