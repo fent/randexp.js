@@ -1,0 +1,26 @@
+{
+  "name": "rndexp",
+  "description": "Create random strings that match a given regular expression.",
+  "keywords": ["regex", "regexp", "regular expression", "random"],
+  "version": "0.1.0",
+  "homepage": "https://github.com/fent/rndexp.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fent/rndexp.js.git"
+  },
+  "author": "fent (https://github.com/fent)",
+  "main": "./lib/rndexp.js",
+  "scripts": {
+    "test": "vows test/*-test.js --spec"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "licenses": [ {
+    "type": "MIT",
+    "url" : "http://github.com/fent/rndexp.js/raw/master/LICENSE"
+  }]
+}
