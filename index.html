@@ -72,7 +72,6 @@
   </style>
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="arttextlight.js"></script>
   <script type="text/javascript" src="http://github.com/fent/randexp.js/raw/master/build/randexp.min.js"></script>
   <script type="text/javascript">
     // thank you CD Sanchez from StackOerflow forr this HashSearch function
@@ -285,6 +284,7 @@
       // filter modifier input to only allow the characters set 'im'
       $('.mod').on('keydown', function(e) {
         var c = e.keyCode;
+console.log(c);
         if ((c !== 8 && c !== 73 && c !== 77) ||
           $(this).val().toUpperCase()
             .indexOf(String.fromCharCode(e.keyCode)) !== -1) {
