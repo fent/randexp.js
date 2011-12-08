@@ -270,12 +270,11 @@
       }
 
       // filter modifier input to only allow the characters set 'im'
-      $('.mod').on('keydown', function(e) {
+      $('.mod').on('keypress', function(e) {
         var c = e.keyCode;
-console.log(c);
-        if ((c !== 8 && c !== 73 && c !== 77) ||
-          $(this).val().toUpperCase()
-            .indexOf(String.fromCharCode(e.keyCode)) !== -1) {
+        if ((c !== 105 && c !== 109) ||
+          $(this).val()
+            .indexOf(String.fromCharCode(c)) !== -1) {
           e.preventDefault();
         }
       });
