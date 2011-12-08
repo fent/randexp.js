@@ -8,7 +8,7 @@
   <style type="text/css">
     body {
       margin-top: 1.0em;
-      background-color: #e6faf4;
+      background-color: #E6F7FA;
       font-family: Helvetica, Arial, FreeSans, san-serif;
       color: #000000;
     }
@@ -20,19 +20,19 @@
     h1 .small { font-size: 0.4em; }
     h1 a { text-decoration: none }
     h2 { font-size: 1.5em; color: #19050b; }
-    h3 { text-align: center; color: #19050b; }
+    h3 { color: #19050b; }
     a { color: #19050b; }
     .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
     .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
+    pre.code { background: #000; color: #fff; padding: 10px;}
 
-    code {
+    #tryit {
       font-size: 150%;
     }
 
-    #input, #result, #mod {
+    .field, .result, .mod {
       -webkit-border-radius: 10px;
          -mox-border-radius: 10px;
               border-radius: 10px;
@@ -41,60 +41,252 @@
       padding: 0 3px;
     }
 
-    #input {
+    .field {
       width: 50%;
     }
 
-    #mod {
+    .mod {
       width: 2em;
     }
 
-    #gen {
+    .gen {
       font-size: 100%;
       font-weight: bold;
     }
 
-    #result {
+    .result {
+      font: 20px 'Aclonica', serif;
+      font-size: 130%;
+      color: #222;
+      text-shadow: 0px 1px 1px #4d4d4d;
+
       border: 2px dashed #ccc;
       margin-top: 1em;
       margin-bottom: 2em;
       width: 100%;
-      min-height: 3em;
-      font-size: 130%;
+      min-height: 2em;
       word-wrap: break-word;
     }
+
+    .err { color: red }
   </style>
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="arttextlight.js"></script>
   <script type="text/javascript" src="http://github.com/fent/randexp.js/raw/master/build/randexp.min.js"></script>
   <script type="text/javascript">
+    // thank you CD Sanchez from StackOerflow forr this HashSearch function
+    var HashSearch = new function () {
+       var params;
+
+       this.set = function (key, value) {
+          params[key] = value;
+          this.push();
+       };
+
+       this.remove = function(key) {
+         delete params[key];
+         this.push();
+       };
+
+       this.get = function (key, value) {
+           return params[key];
+       };
+
+       this.keyExists = function (key) {
+           return params.hasOwnProperty(key);
+       };
+
+       this.push= function () {
+           var hashBuilder = [], key, value;
+
+           for(key in params) if (params.hasOwnProperty(key)) {
+               key = escape(key), value = escape(params[key]); // escape(undefined) == "undefined"
+               hashBuilder.push(key + ( (value !== "undefined") ? '=' + value : "" ));
+           }
+
+           window.location.hash = hashBuilder.join("&");
+       };
+
+       (this.load = function () {
+           params = {}
+           var hashStr = window.location.hash, hashArray, keyVal
+           hashStr = hashStr.substring(1, hashStr.length);
+           hashArray = hashStr.split('&');
+
+           for(var i = 0; i < hashArray.length; i++) {
+               keyVal = hashArray[i].split('=');
+               params[unescape(keyVal[0])] = (typeof keyVal[1] != "undefined") ? unescape(keyVal[1]) : keyVal[1];
+           }
+       })();
+    }
+
+
+    var first = /hello+ (world|to you)/i;
+    if (HashSearch.keyExists('r')) {
+      try {
+        var m = HashSearch.keyExists('i') ? 'i' : '';
+        m += HashSearch.keyExists('m') ? 'm' : '';
+        first = new RegExp(HashSearch.get('r'), m);
+      } catch (err) {}
+    }
+
+    var examples = [
+      first,
+      {
+        title: 'Date',
+        regex: /(January|February|March|April|May|June|July|August|September|October|November|December) ([1-9]|[12][0-9]|3[01]), (19|20)[0-9][0-9]/
+      },
+      {
+        title: 'Float',
+               regex: /[-+]?[0-9]{0,16}(\.[0-9]{1,6})?/
+      },
+      {
+        title: 'Email Address',
+        regex: /[a-z0-9._%+-]{1,20}@[a-z0-9.-]{3,15}\.[a-z]{2,4}/
+      },
+      {
+        title: 'XML Tags',
+        regex: /<([a-z]+)>(.*?)<\/\1>/
+      },
+      {
+        title: 'sha1 Hash',
+        regex: /[a-f0-9]{40}/
+      },
+      {
+        title: 'The Name "Unique"',
+        regex: /((I|Y|Ee{0,2})(o{2,3}|u{1,3})|Uu{0,2}|Yo{2,3})n(y|i{1,3}|e{1,3}|ie|e{1,3}i)(qu?|k{1,3})e{1,3}/
+      },
+      {
+        title: 'US Currency',
+        regex: /\$(\d{1,3}(\,\d{3}){0,3}|(\d{1,3}))(\.\d{2})?/
+      },
+      {
+        title: 'Simple Password',
+        regex: /\w{6,30}/
+      },
+      {
+        title: 'Lorem Ipsum...',
+        regex: /((Exercitationem|Perferendis|Perspiciatis|Laborum|Eveniet|Sunt|Iure|Nam|Nobis|Eum|Cum|Officiis|Excepturi|Odio|Consectetur|Quasi|Aut|Quisquam|Vel|Eligendi|Itaque|Non|Odit|Tempore|Quaerat|Dignissimos|Facilis|Neque|Nihil|Expedita|Vitae|Vero|Ipsum|Nisi|Animi|Cumque|Pariatur|Velit|Modi|Natus|Iusto|Eaque|Sequi|Illo|Sed|Ex|Et|Voluptatibus|Tempora|Veritatis|Ratione|Assumenda|Incidunt|Nostrum|Placeat|Aliquid|Fuga|Provident|Praesentium|Rem|Necessitatibus|Suscipit|Adipisci|Quidem|Possimus|Voluptas|Debitis|Sint|Accusantium|Unde|Sapiente|Voluptate|Qui|Aspernatur|Laudantium|Soluta|Amet|Quo|Aliquam|Saepe|Culpa|Libero|Ipsa|Dicta|Reiciendis|Nesciunt|Doloribus|Autem|Impedit|Minima|Maiores|Repudiandae|Ipsam|Obcaecati|Ullam|Enim|Totam|Delectus|Ducimus|Quis|Voluptates|Dolores|Molestiae|Harum|Dolorem|Quia|Voluptatem|Molestias|Magni|Distinctio|Omnis|Illum|Dolorum|Voluptatum|Ea|Quas|Quam|Corporis|Quae|Blanditiis|Atque|Deserunt|Laboriosam|Earum|Consequuntur|Hic|Cupiditate|Quibusdam|Accusamus|Ut|Rerum|Error|Minus|Eius|Ab|Ad|Nemo|Fugit|Officia|At|In|Id|Quos|Reprehenderit|Numquam|Iste|Fugiat|Sit|Inventore|Beatae|Repellendus|Magnam|Recusandae|Quod|Explicabo|Doloremque|Aperiam|Consequatur|Asperiores|Commodi|Optio|Dolor|Labore|Temporibus|Repellat|Veniam|Architecto|Est|Esse|Mollitia|Nulla|A|Similique|Eos|Alias|Dolore|Tenetur|Deleniti|Porro|Facere|Maxime|Corrupti)( (exercitationem|perferendis|perspiciatis|laborum|eveniet|sunt|iure|nam|nobis|eum|cum|officiis|excepturi|odio|consectetur|quasi|aut|quisquam|vel|eligendi|itaque|non|odit|tempore|quaerat|dignissimos|facilis|neque|nihil|expedita|vitae|vero|ipsum|nisi|animi|cumque|pariatur|velit|modi|natus|iusto|eaque|sequi|illo|sed|ex|et|voluptatibus|tempora|veritatis|ratione|assumenda|incidunt|nostrum|placeat|aliquid|fuga|provident|praesentium|rem|necessitatibus|suscipit|adipisci|quidem|possimus|voluptas|debitis|sint|accusantium|unde|sapiente|voluptate|qui|aspernatur|laudantium|soluta|amet|quo|aliquam|saepe|culpa|libero|ipsa|dicta|reiciendis|nesciunt|doloribus|autem|impedit|minima|maiores|repudiandae|ipsam|obcaecati|ullam|enim|totam|delectus|ducimus|quis|voluptates|dolores|molestiae|harum|dolorem|quia|voluptatem|molestias|magni|distinctio|omnis|illum|dolorum|voluptatum|ea|quas|quam|corporis|quae|blanditiis|atque|deserunt|laboriosam|earum|consequuntur|hic|cupiditate|quibusdam|accusamus|ut|rerum|error|minus|eius|ab|ad|nemo|fugit|officia|at|in|id|quos|reprehenderit|numquam|iste|fugiat|sit|inventore|beatae|repellendus|magnam|recusandae|quod|explicabo|doloremque|aperiam|consequatur|asperiores|commodi|optio|dolor|labore|temporibus|repellat|veniam|architecto|est|esse|mollitia|nulla|a|similique|eos|alias|dolore|tenetur|deleniti|porro|facere|maxime|corrupti)){2,12}(, (exercitationem|perferendis|perspiciatis|laborum|eveniet|sunt|iure|nam|nobis|eum|cum|officiis|excepturi|odio|consectetur|quasi|aut|quisquam|vel|eligendi|itaque|non|odit|tempore|quaerat|dignissimos|facilis|neque|nihil|expedita|vitae|vero|ipsum|nisi|animi|cumque|pariatur|velit|modi|natus|iusto|eaque|sequi|illo|sed|ex|et|voluptatibus|tempora|veritatis|ratione|assumenda|incidunt|nostrum|placeat|aliquid|fuga|provident|praesentium|rem|necessitatibus|suscipit|adipisci|quidem|possimus|voluptas|debitis|sint|accusantium|unde|sapiente|voluptate|qui|aspernatur|laudantium|soluta|amet|quo|aliquam|saepe|culpa|libero|ipsa|dicta|reiciendis|nesciunt|doloribus|autem|impedit|minima|maiores|repudiandae|ipsam|obcaecati|ullam|enim|totam|delectus|ducimus|quis|voluptates|dolores|molestiae|harum|dolorem|quia|voluptatem|molestias|magni|distinctio|omnis|illum|dolorum|voluptatum|ea|quas|quam|corporis|quae|blanditiis|atque|deserunt|laboriosam|earum|consequuntur|hic|cupiditate|quibusdam|accusamus|ut|rerum|error|minus|eius|ab|ad|nemo|fugit|officia|at|in|id|quos|reprehenderit|numquam|iste|fugiat|sit|inventore|beatae|repellendus|magnam|recusandae|quod|explicabo|doloremque|aperiam|consequatur|asperiores|commodi|optio|dolor|labore|temporibus|repellat|veniam|architecto|est|esse|mollitia|nulla|a|similique|eos|alias|dolore|tenetur|deleniti|porro|facere|maxime|corrupti)( (exercitationem|perferendis|perspiciatis|laborum|eveniet|sunt|iure|nam|nobis|eum|cum|officiis|excepturi|odio|consectetur|quasi|aut|quisquam|vel|eligendi|itaque|non|odit|tempore|quaerat|dignissimos|facilis|neque|nihil|expedita|vitae|vero|ipsum|nisi|animi|cumque|pariatur|velit|modi|natus|iusto|eaque|sequi|illo|sed|ex|et|voluptatibus|tempora|veritatis|ratione|assumenda|incidunt|nostrum|placeat|aliquid|fuga|provident|praesentium|rem|necessitatibus|suscipit|adipisci|quidem|possimus|voluptas|debitis|sint|accusantium|unde|sapiente|voluptate|qui|aspernatur|laudantium|soluta|amet|quo|aliquam|saepe|culpa|libero|ipsa|dicta|reiciendis|nesciunt|doloribus|autem|impedit|minima|maiores|repudiandae|ipsam|obcaecati|ullam|enim|totam|delectus|ducimus|quis|voluptates|dolores|molestiae|harum|dolorem|quia|voluptatem|molestias|magni|distinctio|omnis|illum|dolorum|voluptatum|ea|quas|quam|corporis|quae|blanditiis|atque|deserunt|laboriosam|earum|consequuntur|hic|cupiditate|quibusdam|accusamus|ut|rerum|error|minus|eius|ab|ad|nemo|fugit|officia|at|in|id|quos|reprehenderit|numquam|iste|fugiat|sit|inventore|beatae|repellendus|magnam|recusandae|quod|explicabo|doloremque|aperiam|consequatur|asperiores|commodi|optio|dolor|labore|temporibus|repellat|veniam|architecto|est|esse|mollitia|nulla|a|similique|eos|alias|dolore|tenetur|deleniti|porro|facere|maxime|corrupti)){2,12}){0,5}[.?] ){1,4}/
+      }
+    ];
+
+
+    var enterFn = function(fn) {
+      return function(e) {
+        if (e.keyCode === 13) {
+          fn();
+        }
+      };
+    };
+
     $(document).ready(function() {
-      var field = $('#input'),
-          mod = $('#mod'),
-          result = $('#result'),
-          gen = function() {
-            try {
-              var r = new RegExp(field.val(), mod.val());
-              result.css('color', 'green');
-              result.text(r.gen);
+      var tryItDiv = $('#tryit');
+      var examplesDiv = $('#examples');
 
-            } catch (err) {
-              result.css('color', 'red');
-              result.text(err.message);
-            }
-          };
+      for (var i = 0, l = examples.length; i < l; i++) {
+        (function(regex, i) {
+          var parentDiv = i === 0 ? tryItDiv : examplesDiv,
+              field = $('<input/>'),
+              mod = $('<input/>'),
+              result = $('<div/>'),
 
-      // generate on page load
-      gen();
+              gen = function(pageload) {
+                result.removeClass('err');
 
-      // listen for `.gen` button
-      $('#gen').click(gen);
+                try {
+                  var val = field.val(),
+                      m = mod.val(),
+                      r = new RegExp(field.val(), mod.val());
 
-      // filter modifier input
-      mod.on('keydown', function(e) {
+                  result.text(r.gen);
+                  result.html(result.html().replace(/\n/, '<br />'));
+                  if (!pageload) {
+                    HashSearch.set('r', val);
+                    HashSearch.remove('i');
+                    HashSearch.remove('m');
+                    for (var i = 0, l = m.length; i < l; i++) {
+                      HashSearch.set(m[i]);
+                    }
+                  }
+
+                } catch (err) {
+                  result.addClass('err');
+                  result.text(err.message);
+                }
+              },
+
+              enterKey = enterFn(gen);
+
+
+          // attract if first example
+          if (i === 0) {
+/*
+            result.artTextLight({
+              highlightInterval: 7000,
+              css1: {'color': resultColor },
+              css2: {'color': '#FFF'}
+            });
+*/
+          }
+
+
+          // populate fields
+          field.addClass('field');
+          field.val((regex.source || regex.regex.source).replace(/\\\//g, function(s) {
+            return '/';
+          }));
+          mod.addClass('mod');
+          if (regex.ignoreCase) {
+            mod.val('i');
+          }
+          if (regex.multiline) {
+            mod.val(mod.val() + 'm');
+          }
+          result.addClass('result');
+
+
+          // crate main example container
+          var container = $('<div/>')
+            .appendTo(parentDiv);
+
+          // add optional title
+          if (regex.title) {
+            container.append($('<h3/>').text(regex.title));
+          }
+
+          // add top div
+          var topContainer = $('<div/>')
+            .append('new RegExp(')
+            .append(field)
+            .append(', ')
+            .append(mod)
+            .append(')')
+            .appendTo(container);
+
+          // make a button to generate the randexp when clicked
+          $('<button/>')
+            .addClass('gen').text('.gen')
+            .click(gen)
+            .appendTo(topContainer);
+
+          // append to main example container
+          container.append(result);
+
+          // generate randexp on page load
+          gen(true);
+
+          // generate randexp on enter key press
+          field.on('keydown', enterKey);
+          mod.on('keydown', enterKey);
+        })(examples[i], i);
+      }
+
+      // filter modifier input to only allow the characters set 'im'
+      $('.mod').on('keydown', function(e) {
         var c = e.keyCode;
         if ((c !== 8 && c !== 73 && c !== 77) ||
-          mod.val().toUpperCase()
+          $(this).val().toUpperCase()
             .indexOf(String.fromCharCode(e.keyCode)) !== -1) {
           e.preventDefault();
         }
@@ -123,48 +315,43 @@
     </div>
 
     
-    <h2>Usage</h2>
+    <h2>Try it Now</h2>
+    <div id="tryit"></div>
 
+    <h2>Usage</h2>
 <script src="https://gist.github.com/1439081.js?file=gistfile1.js"></script>
 
-      <h2>Try it now</h2>
-      <p>
-      <div><code>
-          new RegExp(<input id="input" value="hello+ (world|to you)" />,
-          <input id="mod" value="i" />)<button id="gen">.gen</button>
-      </code></div>
-      <div id="result"></div>
-      </p>
+    <h2>More Examples</h2>
+    <div id="examples"></div>
 
+    <h2>Motivation</h2>
+    <p>
+    Regular expressions are used in every language, every programmer is familiar with them. Regex can be used to easily express complex strings. What better way to generate a random data than with a tool you can easily describe what string you want?
+    </p>
 
-      <h2>Motivation</h2>
-      <p>
-      Regular expressions are used in every language, every programmer is familiar with them. Regex can be used to easily express complex strings. What better way to generate a random string than with a tool you can easily use to express the string any way you want?
-      </p>
+    <p>
+    Thanks to <a href="http://search.cpan.org/~steve/String-Random-0.22/lib/String/Random.pm">String-Random</a> for giving me the idea to make this in the first place and <a href="https://github.com/benburkert/randexp">randexp</a> for the nifty little `.gen` syntax.
+    </p>
 
-      <p>
-      Thanks to <a href="http://search.cpan.org/~steve/String-Random-0.22/lib/String/Random.pm">String-Random</a> for giving me the idea to make this in the first place and <a href="https://github.com/benburkert/randexp">randexp</a> for the nifty little `.gen` syntax.
-      </p>
+  
+  
+    <h2>Install</h2>
+    <p>For node.js install with <a href="http://npmjs.org/">npm</a>
 
-    
-    
-      <h2>Install</h2>
-      <p>For node.js install with <a href="http://npmjs.org/">npm</a>
+    <p><pre class="code">npm install randexp</pre></p>
 
-      <p><pre>npm install randexp</pre></p>
+    <p>For use in browsers, download the <a href="http://github.com/fent/randexp.js/raw/master/build/randexp.min.js">minified version</a>.</p>
+  
 
-      <p>For use in browsers, download the <a href="http://github.com/fent/randexp.js/raw/master/build/randexp.min.js">minified version</a>.</p>
-    
+  
+    <h2>License</h2>
+    <p>MIT</p>
+  
 
-    
-      <h2>License</h2>
-      <p>MIT</p>
-    
-
-    
-      <h2>Authors</h2>
-      <p>Roly Fentanes (roly426@gmail.com)</p>
-    
+  
+    <h2>Authors</h2>
+    <p>Roly Fentanes (roly426@gmail.com)</p>
+  
 
     <div class="footer">
       get the source code on GitHub : <a href="https://github.com/fent/randexp.js">fent/randexp.js</a>
