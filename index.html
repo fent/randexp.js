@@ -267,8 +267,8 @@
           // make a button to generate the randexp when clicked
           $('<button/>')
             .addClass('gen').text('.gen')
-            .click(gen)
-            .appendTo(topContainer);
+            .appendTo(topContainer)
+            .click(function() { gen(); });
 
           // append to main example container
           container.append(result);
