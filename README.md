@@ -44,7 +44,7 @@ Classes like the `.` character will match anything except a new line. In this ca
 
 ```js
 var r = /./;
-r._anyRndChar = function() {
+r._anyRandChar = function() {
   return the char you want here;
 };
 ```

@@ -2,10 +2,10 @@ var   vows = require('vows')
   , assert = require('assert')
   ;
 
-require('../');
+require('..');
 
 
-vows.describe('Initialize RndExp')
+vows.describe('Initialize RandExp')
   .addBatch({
     'Create a regular expression': {
       'topic': function() {
