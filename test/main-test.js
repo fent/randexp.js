@@ -3,7 +3,7 @@ var  tests = require('./tests.js')
   , assert = require('assert')
   ;
 
-require('../');
+require('..');
 
 
 // matcher that will be used in all tests
