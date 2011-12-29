@@ -14,8 +14,8 @@ for (var type in tests) {
           it(test.desc, function() {
             var randexp = new RandExp(test.regexp);
 
-            assert(test.regexp.test(randexp.gen()));
-            assert(test.regexp.test(randexp.gen()));
+            assert.equal(true, test.regexp.test(randexp.gen()));
+            assert.equal(true, test.regexp.test(randexp.gen()));
           });
 
         })(tests[type][row]);

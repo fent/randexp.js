@@ -8,13 +8,13 @@ describe('Initialize RandExp with global()', function() {
     var regexp = /.ff something+/;
 
     it('Should have a `gen` getter', function() {
-      assert(typeof (regexp.gen) === 'function');
+      assert.equal(true, typeof (regexp.gen) === 'function');
     });
 
     it('Regexp should match generated string', function() {
       // test if it works more than once
-      assert(regexp.test(regexp.gen()));;
-      assert(regexp.test(regexp.gen()));;
+      assert.equal(true, regexp.test(regexp.gen()));;
+      assert.equal(true, regexp.test(regexp.gen()));;
     });
 
     describe('Change its max property', function() {
