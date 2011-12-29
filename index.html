@@ -183,8 +183,6 @@
       };
     };
 
-    var RandExp = require('randexp');
-
     $(document).ready(function() {
       var tryItDiv = $('#tryit');
       var examplesDiv = $('#examples');
@@ -197,14 +195,13 @@
               mod = $('<input/>'),
               result = $('<div/>'),
 
-              previousVal, previousM,
+              previousVal, previousM, randexp,
               gen = function(pageload) {
                 result.removeClass('err');
 
                 try {
                   var val = field.val(),
-                      m = mod.val(),
-                      randexp;
+                      m = mod.val();
 
                   if ((val !== previousVal) ||
                        m !== previousM) {
