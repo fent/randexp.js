@@ -183,6 +183,8 @@
       };
     };
 
+    var RandExp = require('randexp');
+
     $(document).ready(function() {
       var tryItDiv = $('#tryit');
       var examplesDiv = $('#examples');
@@ -195,22 +197,24 @@
               mod = $('<input/>'),
               result = $('<div/>'),
 
-              regexp, previousM,
+              previousVal, previousM,
               gen = function(pageload) {
                 result.removeClass('err');
 
                 try {
                   var val = field.val(),
-                      m = mod.val();
+                      m = mod.val(),
+                      randexp;
 
-                  if ((regexp && val !== regexp.source) ||
+                  if ((val !== previousVal) ||
                        m !== previousM) {
                       var change = true;
-                      regexp = new RegExp(val, m);
+                      previousVal = val;
                       previousM = m;
+                      randexp = new RandExp(val, m);
                   }
 
-                  result.text(regexp.gen);
+                  result.text(randexp.gen());
                   result.html(result.html().replace(/\n/, '<br />'));
 
                   // only change hash on try it now div
@@ -258,7 +262,7 @@
 
           // add top div
           var topContainer = $('<div/>')
-            .append('new RegExp(')
+            .append('new RandExp(')
             .append(field)
             .append(', ')
             .append(mod)
@@ -267,7 +271,7 @@
 
           // make a button to generate the randexp when clicked
           $('<button/>')
-            .addClass('gen').text('.gen')
+            .addClass('gen').text('.gen()')
             .appendTo(topContainer)
             .click(function() { gen(); });
 
