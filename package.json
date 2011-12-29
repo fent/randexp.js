@@ -11,7 +11,7 @@
   "author": "Roly Fentanes (https://github.com/fent)",
   "main": "./lib/randexp.js",
   "scripts": {
-    "test": "vows test/*-test.js --spec"
+    "test": "mocha -R spec test/*-test.js"
   },
   "directories": {
     "lib": "./lib"
