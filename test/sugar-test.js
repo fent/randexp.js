@@ -1,0 +1,35 @@
+var assert = require('assert');
+
+require('..').sugar();
+
+
+describe('Initialize RandExp with global()', function() {
+  describe('Create a regular expression', function() {
+    var regexp = /.ff something+/;
+
+    it('Should have a `gen` getter', function() {
+      assert(typeof (regexp.gen) === 'function');
+    });
+
+    it('Regexp should match generated string', function() {
+      // test if it works more than once
+      assert(regexp.test(regexp.gen()));;
+      assert(regexp.test(regexp.gen()));;
+    });
+
+    describe('Change its max property', function() {
+      it('Generates new sized repetitionals', function() {
+        regexp.max = 0;
+        assert.equal(regexp.gen().substr(4), 'something');
+      });
+    });
+
+    describe('Change its anyRandChar property', function() {
+      it('Generates the character I gave it', function() {
+        regexp.anyRandChar = function() { return 'y'; };
+        assert.equal(regexp.gen()[0], 'y');
+      });
+    });
+
+  });
+});
