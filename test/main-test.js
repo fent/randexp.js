@@ -1,9 +1,6 @@
-var  tests = require('./tests.js')
-  ,   vows = require('vows')
-  , assert = require('assert')
-  ;
-
-require('..');
+var   tests = require('./tests.js')
+  ,  assert = require('assert')
+  , RandExp = require('..')
 
 
 // matcher that will be used in all tests
@@ -11,7 +8,7 @@ require('..');
 var match = function(regexp, desc) {
   var obj = {
     topic: function() {
-      return regexp.gen;
+      return new RandExp(regexp).gen();
     }
   };
 
@@ -24,15 +21,22 @@ var match = function(regexp, desc) {
 
 
 for (var type in tests) {
-  var suite = vows.describe(type),
-      batch = {};
+  if (tests.hasOwnProperty(type)) {
+    describe(type, function() {
 
-  for (var row in tests[type]) {
-    var regexp = tests[type][row].regexp,
-          desc = tests[type][row].desc;
-    batch[row] = match(regexp, desc);
+    for (var row in tests[type]) {
+      if (tests[type].hasOwnProperty(row)) {
+        (function(test) {
+
+          it(test.desc, function() {
+            var randstr = new RandExp(test.regexp).gen();
+            assert(test.regexp.test(randstr));
+          });
+
+        })(tests[type][row]);
+      }
+    }
+
+    });
   }
-
-  suite.addBatch(batch);
-  suite.export(module);
 }
