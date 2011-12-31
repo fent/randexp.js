@@ -31,6 +31,12 @@ module.exports = {
     '\\B': {
       regexp: /m\Bore/,
       desc: 'Matches any non-word boundary.'
+    },
+
+    'Bad Regexp': {
+      regexp: [/a^/m, /b^/, /$c/m, /$d/, /e\bf/, /\Bg/],
+      desc: 'A string that matches these regular expressions does not exist.',
+      bad: true
     }
   },
 
@@ -93,16 +99,25 @@ module.exports = {
   },
 
 
-  'Character Classes': {
+  'Character Sets': {
     '[xyz]': {
-      regexp: /[abc] [a-z] [0-4] [a-zA-Z0-9]/,
+      regexp: [/[abc]/, /[a-z]/, /[0-4]/, /[a-zA-Z0-9]/, /[\w]/, /[\d]/, /[\s]/, /[\W]/, /[\D]/, /[\S]/],
       desc: 'Matches any one character enclosed in the character set. You may use a hyphen to denote range.'
     },
 
     '[^xyz]': {
-      regexp: /[^AN]BC/,
+      regexp: [/[^AN]BC/, /[^\w]/, /[^\d]/, /[^\s]/, /[^\W]/, /[^\D]/, /[^\S]/],
       desc: 'Matches any one characer not enclosed in the character set.'
     },
+
+    /*
+     * infinite loop
+    'Bad Custom Sets': {
+      regexp: [/[^\W\w]/, /[^\D\d]/, /[^\S\s]/],
+      desc: 'A string that matches these regular expressions does not exist',
+      bad: true
+    },
+    */
 
     '. (Dot)': {
       regexp: /b.t/,
