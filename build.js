@@ -2,8 +2,14 @@ var pkg = require('./package.json');
 
 // browserify
 var b = require('browserify')();
-b.addEntry(pkg.main);
+//b.addEntry(pkg.main);
+b.require({ RandExp: pkg.main });
 var source = b.bundle();
+
+
+// wrap in immediately executed anonymous function
+// to avoid leaking globals
+var source = '(function(){' + source + '})();';
 
 
 // uglify
