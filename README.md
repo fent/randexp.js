@@ -105,7 +105,7 @@ Other cancelling out character sets like `/[^\D]/` are bad too. These are the sa
 
 ### Browser
 
-Download the [minified version](http://github.com/fent/randexp.js/raw/master/build/randexp.min.js).
+Download the [minified version](https://github.com/fent/randexp.js/releases) from the latest release.
 
 
 # Tests
