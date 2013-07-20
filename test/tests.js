@@ -42,12 +42,12 @@ module.exports = {
 
 
   'Characters': {
-    'Any character except []{}\^$.|?*+()': {
+    'Any character except []{}^$.|?*+()': {
       regexp: /a/,
       desc: 'All charaacters except the listed special characters match a single instane of themselves.'
     },
 
-    '\ (backslash) followed by any of []{}\^$.|?*+()': {
+    '\\ (backslash) followed by any of []{}^$.|?*+()': {
       regexp: /\+/,
       desc: 'A backslash escapes special characters to suppress their special meaning.'
     },
@@ -216,7 +216,7 @@ module.exports = {
 
   'Back References': {
     '()\\x': {
-      regexp: /(\w+)\s+\1/,
+      regexp: [/(\w+)\s+\1/, /(a)(\2\1)/],
       desc: '"\\x" (where x is a number from 1 to 9) when added to the end of a regular expression pattern allows you to back reference a subpattern within the pattern, so the value of the subpatterns is remembered and used as part of the matching.'
     }
   }
