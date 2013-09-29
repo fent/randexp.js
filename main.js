@@ -104,7 +104,7 @@ function example(regexp, i) {
       HashSearch.remove('i');
       HashSearch.remove('m');
       for (var i = 0, l = m.length; i < l; i++) {
-        HashSearch.set(m[i]);
+        HashSearch.set(m[i], true);
       }
     }
   }

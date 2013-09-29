@@ -7,7 +7,9 @@ window.HashSearch = (function() {
   var hashArray = hashStr.split('&');
 
   for (var i = 0; i < hashArray.length; i++) {
-    var keyVal = hashArray[i].split('=');
+    var ss = hashArray[i];
+    if (ss === '') { continue; }
+    var keyVal = ss.split('=');
     var value = typeof keyVal[1] !== 'undefined' ? unescape(keyVal[1]) : true;
     params[unescape(keyVal[0])] = value;
   }
@@ -33,16 +35,18 @@ window.HashSearch = (function() {
   var timeoutSet = false;
   function updateHash() {
     timeoutSet = false;
-    var hashBuilder = [], key, value;
+    var hashBuilder = [];
 
-    for (key in params) if (params.hasOwnProperty(key)) {
-      key = escape(key); // escape(undefined) == "undefined"
-      value = escape(params[key]);
-      hashBuilder.push(key + (value !== 'undefined' ? '=' + value : ''));
+    for (var key in params) if (params.hasOwnProperty(key)) {
+      var ss = escape(key); // escape(undefined) == "undefined"
+      var value = params[key];
+      if (typeof value !== 'boolean') {
+        ss += '=' + escape(value);
+      }
+      hashBuilder.push(ss);
     }
 
     window.location.hash = hashBuilder.join('&');
-    console.log('update', window.location.hash);
   }
 
   self.push = function() {
