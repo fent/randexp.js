@@ -1,7 +1,7 @@
 {
   "name": "randexp",
   "description": "Create random strings that match a given regular expression.",
-  "keywords": ["regex", "regexp", "regular expression", "random"],
+  "keywords": ["regex", "regexp", "regular expression", "random", "test"],
   "version": "0.3.3",
   "homepage": "http://fent.github.io/randexp.js/",
   "repository": {
