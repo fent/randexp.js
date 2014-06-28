@@ -23,8 +23,8 @@ function createIt(test) {
 
       // Generate several times.
       for (var k = 0; k < 5; k++) {
-        match(reg, rand.gen(), test.bad);
-        match(reg, randexp(reg), test.bad);
+        match(reg, rand.gen(), test.bad || false);
+        match(reg, randexp(reg), test.bad || false);
       }
     }
   };
