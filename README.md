@@ -53,25 +53,6 @@ Regular expressions are used in every language, every programmer is familiar wit
 Thanks to [String-Random](http://search.cpan.org/~steve/String-Random-0.22/lib/String/Random.pm) for giving me the idea to make this in the first place and [randexp](https://github.com/benburkert/randexp) for the sweet `.gen()` syntax.
 
 
-# Negated Character Sets
-Sets like the `.` character will match anything except a new line. In this case, a character with a random char code between 0 and 65535 will be generated. If you want to overwrite this function you can change the `anyRandChar` function in the randexp object.
-
-```js
-var randexp = new RandExp(/./);
-randexp.anyRandChar = function() {
-  return 'c';
-};
-```
-
-If using `RandExp.sugar()`
-
-```js
-var regexp = /./;
-regexp.anyRandChar = function() {
-  return 'c';
-};
-```
-
 # Infinite Repetitionals
 
 Repetitional tokens such as `*`, `+`, and `{3,}` have an infinite max range. In this case, randexp looks at its min and adds 100 to it to get a useable max value. If you want to use another int other than 100 you can change the `max` property in the randexp object.
