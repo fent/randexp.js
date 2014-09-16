@@ -17,6 +17,7 @@
     "lib": "./lib"
   },
   "dependencies": {
+    "discontinuous-range": "^1.0.0",
     "ret": "0.1.x"
   },
   "devDependencies": {
