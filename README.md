@@ -61,8 +61,8 @@ RandExp.defaultRange.subtract(32, 126);
 RandExp.defaultRange.add(0, 65535);
 ```
 
-#Custom PRNG
-The default randomness is provided by math.random. If you need to use a seedable or cryptographic PRNG you
+# Custom PRNG
+The default randomness is provided by `math.random()`. If you need to use a seedable or cryptographic PRNG you
 can override `RandExp.randInt`. `randInt(from, to)` accepts an inclusive range and returns a randomly selected
 number within that range.
 

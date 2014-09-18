@@ -3,7 +3,7 @@ var assert = require('assert');
 var RandExp = require('..');
 
 var seed;
-//simple "good enough" PRNG
+// This is a simple "good enough" PRNG.
 function prng(a, b) {
   seed = Math.pow(seed, 2) % 94906249;
   return seed % (1 + b - a) + a;
@@ -17,6 +17,6 @@ describe('Modify PRNG', function() {
     var a = RandExp.randexp(/.{100}/);
     seed = initial_seed;
     var b = RandExp.randexp(/.{100}/);
-    assert.equal(a, b, "same seed should produce same output");
+    assert.equal(a, b, 'same seed should produce same output');
   });
 });
