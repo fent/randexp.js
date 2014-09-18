@@ -53,25 +53,6 @@ Regular expressions are used in every language, every programmer is familiar wit
 Thanks to [String-Random](http://search.cpan.org/~steve/String-Random-0.22/lib/String/Random.pm) for giving me the idea to make this in the first place and [randexp](https://github.com/benburkert/randexp) for the sweet `.gen()` syntax.
 
 
-# Negated Character Sets
-Sets like the `.` character will match anything except a new line. In this case, a character with a random char code between 0 and 65535 will be generated. If you want to overwrite this function you can change the `anyRandChar` function in the randexp object.
-
-```js
-var randexp = new RandExp(/./);
-randexp.anyRandChar = function() {
-  return 'c';
-};
-```
-
-If using `RandExp.sugar()`
-
-```js
-var regexp = /./;
-regexp.anyRandChar = function() {
-  return 'c';
-};
-```
-
 # Infinite Repetitionals
 
 Repetitional tokens such as `*`, `+`, and `{3,}` have an infinite max range. In this case, randexp looks at its min and adds 100 to it to get a useable max value. If you want to use another int other than 100 you can change the `max` property in the randexp object.
@@ -96,8 +77,6 @@ There are some regular expressions which can never match any string.
 * Back references to non-existing groups like `/(a)\1\2/`. Randexp will ignore those references, returning an empty string for them. If the group exists only after the reference is used such as in `/\1 (hey)/`, it will too be ignored.
 
 * Custom negated character sets with two sets inside that cancel each other out. Example: `/[^\w\W]/`. If you give this to randexp, it will ignore both set tokens.
-
-Other cancelling out character sets like `/[^\D]/` are bad too. These are the same as `/[\d]/`. Except it will be slow in generating a matching string because it will first generate a random character and then check if it's in the set inside. It will take a while to randomly generate an integer out of 65535 characters.
 
 
 # Install
