@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "discontinuous-range": "1.0.0",
-    "ret": "0.1.x"
+    "ret": "0.1.10"
   },
   "devDependencies": {
     "mocha": "x"
