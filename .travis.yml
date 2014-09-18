@@ -6,3 +6,5 @@ notifications:
   email:
     on_success: change
     on_failure: change
+before_script:
+  - npm update -g npm
