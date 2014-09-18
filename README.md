@@ -53,6 +53,20 @@ Regular expressions are used in every language, every programmer is familiar wit
 Thanks to [String-Random](http://search.cpan.org/~steve/String-Random-0.22/lib/String/Random.pm) for giving me the idea to make this in the first place and [randexp](https://github.com/benburkert/randexp) for the sweet `.gen()` syntax.
 
 
+# Default Range
+The default generated character range includes printable ASCII.  In order to add or remove characters,
+a `defaultRange` attribute is exposed. you can `subtract(from, to)` and `add(from, to)`
+```js
+RandExp.defaultRange.subtract(32, 126);
+RandExp.defaultRange.add(0, 65535);
+```
+
+#Custom PRNG
+The default randomness is provided by math.random. If you need to use a seedable or cryptographic PRNG you
+can override `RandExp.randInt`. `randInt(from, to)` accepts an inclusive range and returns a randomly selected
+number within that range.
+
+
 # Infinite Repetitionals
 
 Repetitional tokens such as `*`, `+`, and `{3,}` have an infinite max range. In this case, randexp looks at its min and adds 100 to it to get a useable max value. If you want to use another int other than 100 you can change the `max` property in the randexp object.
