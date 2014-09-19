@@ -17,7 +17,7 @@ new RandExp(/<([a-z]\w{0,20})>foo<\1>/).gen();
 
 // wildcard
 new RandExp(/random stuff: .+/).gen();
-// => random stuff: 湐箻ໜ䫴␩⶛㳸長���邓蕲뤀쑡篷皇硬剈궦佔칗븛뀃匫鴔事좍ﯣ⭼ꝏ䭍詳蒂䥂뽭
+// => random stuff: l3m;Hf9XYbI [YPaxV>U*4-_F!WXQh9>;rH3i l!8.zoh?[utt1OWFQrE ^~8zEQm]~tK
 
 // ignore case
 new RandExp(/xxx xtreme dragon warrior xxx/i).gen();
@@ -57,13 +57,16 @@ Thanks to [String-Random](http://search.cpan.org/~steve/String-Random-0.22/lib/S
 The default generated character range includes printable ASCII.  In order to add or remove characters,
 a `defaultRange` attribute is exposed. you can `subtract(from, to)` and `add(from, to)`
 ```js
-RandExp.defaultRange.subtract(32, 126);
-RandExp.defaultRange.add(0, 65535);
+var randexp = new RandExp(/random stuff: .+/);
+randexp.defaultRange.subtract(32, 126);
+randexp.defaultRange.add(0, 65535);
+randexp.gen();
+// => random stuff: 湐箻ໜ䫴␩⶛㳸長���邓蕲뤀쑡篷皇硬剈궦佔칗븛뀃匫鴔事좍ﯣ⭼ꝏ䭍詳蒂䥂뽭
 ```
 
 # Custom PRNG
 The default randomness is provided by `math.random()`. If you need to use a seedable or cryptographic PRNG you
-can override `RandExp.randInt`. `randInt(from, to)` accepts an inclusive range and returns a randomly selected
+can override `RandExp.prototype.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`. `randInt(from, to)` accepts an inclusive range and returns a randomly selected
 number within that range.
 
 
