@@ -65,7 +65,7 @@ randexp.gen();
 ```
 
 # Custom PRNG
-The default randomness is provided by `math.random()`. If you need to use a seedable or cryptographic PRNG you
+The default randomness is provided by `Math.random()`. If you need to use a seedable or cryptographic PRNG you
 can override `RandExp.prototype.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`. `randInt(from, to)` accepts an inclusive range and returns a randomly selected
 number within that range.
 
