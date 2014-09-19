@@ -24,12 +24,5 @@ describe('Initialize RandExp with global()', function() {
       });
     });
 
-    describe('Change its anyRandChar property', function() {
-      it('Generates the character I gave it', function() {
-        regexp.anyRandChar = function() { return 'y'; };
-        assert.equal(regexp.gen()[0], 'y');
-      });
-    });
-
   });
 });
