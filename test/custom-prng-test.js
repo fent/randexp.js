@@ -12,11 +12,23 @@ function prng(a, b) {
 describe('Modify PRNG', function() {
   it('Should generate the same string when the PRNG is seeded the same way', function() {
     var initial_seed = Math.random() * Math.pow(2, 32) + Date.now();
-    RandExp.randInt = prng;
+
+    var aRE = new RandExp(/.{100}/);
+    aRE.randInt = prng;
     seed = initial_seed;
-    var a = RandExp.randexp(/.{100}/);
+    var a = aRE.gen();
+
+    var bRE = new RandExp(/.{100}/);
+    bRE.randInt = prng;
     seed = initial_seed;
-    var b = RandExp.randexp(/.{100}/);
+    var b = bRE.gen();
+
+
+    RandExp.prototype.randInt = prng;
+    seed = initial_seed;
+    var c = RandExp.randexp(/.{100}/);
+
     assert.equal(a, b, 'same seed should produce same output');
+    assert.equal(a, c, 'same seed should produce same output');
   });
 });
