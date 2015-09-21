@@ -1,7 +1,13 @@
 {
   "name": "randexp",
   "description": "Create random strings that match a given regular expression.",
-  "keywords": ["regex", "regexp", "regular expression", "random", "test"],
+  "keywords": [
+    "regex",
+    "regexp",
+    "regular expression",
+    "random",
+    "test"
+  ],
   "version": "0.4.0",
   "homepage": "http://fent.github.io/randexp.js/",
   "repository": {
@@ -21,10 +27,19 @@
     "ret": "0.1.10"
   },
   "devDependencies": {
-    "mocha": "x"
+    "browserify": "^11.1.0",
+    "gulp": "^3.9.0",
+    "gulp-header": "^1.7.1",
+    "gulp-insert": "^0.5.0",
+    "gulp-uglify": "^1.4.1",
+    "mocha": "x",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   },
-  "licenses": [ {
-    "type": "MIT",
-    "url" : "http://github.com/fent/randexp.js/raw/master/LICENSE"
-  }]
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/fent/randexp.js/raw/master/LICENSE"
+    }
+  ]
 }
