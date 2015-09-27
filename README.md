@@ -1,9 +1,11 @@
-# randexp.js [![Build Status](https://secure.travis-ci.org/fent/randexp.js.png)](http://travis-ci.org/fent/randexp.js)
+# randexp.js
 
 randexp will generate a random string that matches a given RegExp Javascript object.
 
+[![Build Status](https://secure.travis-ci.org/fent/randexp.js.png)](http://travis-ci.org/fent/randexp.js) [![Dependency Status](https://gemnasium.com/fent/randexp.js.svg)](https://gemnasium.com/fent/randexp.js)
 
 # Usage
+
 ```js
 var RandExp = require('randexp');
 
@@ -46,14 +48,14 @@ require('randexp').sugar();
 /yes|no|maybe|i don't know/.gen(); // maybe
 ```
 
-
 # Motivation
+
 Regular expressions are used in every language, every programmer is familiar with them. Regex can be used to easily express complex strings. What better way to generate a random string than with a tool you can easily use to express the string any way you want?
 
 Thanks to [String-Random](http://search.cpan.org/~steve/String-Random-0.22/lib/String/Random.pm) for giving me the idea to make this in the first place and [randexp](https://github.com/benburkert/randexp) for the sweet `.gen()` syntax.
 
-
 # Default Range
+
 The default generated character range includes printable ASCII.  In order to add or remove characters,
 a `defaultRange` attribute is exposed. you can `subtract(from, to)` and `add(from, to)`
 ```js
@@ -68,7 +70,6 @@ randexp.gen();
 The default randomness is provided by `Math.random()`. If you need to use a seedable or cryptographic PRNG you
 can override `RandExp.prototype.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`. `randInt(from, to)` accepts an inclusive range and returns a randomly selected
 number within that range.
-
 
 # Infinite Repetitionals
 
@@ -87,6 +88,7 @@ regexp.max = 1000000;
 ```
 
 # Bad Regular Expressions
+
 There are some regular expressions which can never match any string.
 
 * Ones with badly placed positionals such as `/a^/` and `/$c/m`. Randexp will ignore positional tokens.
@@ -97,6 +99,7 @@ There are some regular expressions which can never match any string.
 
 
 # Install
+
 ### Node.js
 
     npm install randexp
@@ -107,6 +110,7 @@ Download the [minified version](https://github.com/fent/randexp.js/releases) fro
 
 
 # Tests
+
 Tests are written with [mocha](http://visionmedia.github.com/mocha/)
 
 ```bash
@@ -115,4 +119,5 @@ npm test
 
 
 # License
+
 MIT
