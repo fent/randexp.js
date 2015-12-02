@@ -1,0 +1,27 @@
+{
+  "name": "randexp",
+  "description": "Create random strings that match a given regular expression.",
+  "main": "build/randexp.min.js",
+  "authors": [
+    "Roly Fentanes (https://github.com/fent)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "regex",
+    "regexp",
+    "regular",
+    "expression",
+    "random",
+    "test"
+  ],
+  "homepage": "https://github.com/fent/randexp.js",
+  "ignore": [
+    "**/.*",
+    "gulpfile.js",
+    "lib",
+    "package.json",
+    "bower_components",
+    "node_modules",
+    "test"
+  ]
+}
