@@ -14,7 +14,7 @@
     "random",
     "test"
   ],
-  "homepage": "https://github.com/TriangleJuice/randexp.js",
+  "homepage": "https://github.com/fent/randexp.js",
   "ignore": [
     "**/.*",
     "gulpfile.js",
