@@ -6,7 +6,7 @@ var RandExp = require('..');
 describe('Modify Range', function() {
   it('Should generate unicode when we expand its range', function() {
     var re = new RandExp(/.{100}/);
-    re.defaultRange.add(0,65535);
+    re.defaultRange.add(0, 65535);
     var output = re.gen();
     var max_char = 0;
     for (var i = 0; i < output.length; i++) {
