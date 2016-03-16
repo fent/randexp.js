@@ -198,6 +198,7 @@ module.exports = {
       desc: 'Matches x but does not capture it.'
     },
 
+    /*
     'x(?=y)': {
       regexp: /George(?= Bush)/,
       desc: 'Positive lookahead: Matches x only if it\'s followed by y. Note that y is not included as part of the match.'
@@ -207,6 +208,7 @@ module.exports = {
       regexp: /^\d(?! years)/,
       desc: 'Negative lookahead: Matches x only if it\'s NOT followed by y. Note that y is not included as part of the match.'
     },
+    */
 
     '| (Pipe)': {
       regexp: /forever|young/,
