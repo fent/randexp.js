@@ -27,6 +27,7 @@
     "ret": "~0.1.10"
   },
   "devDependencies": {
+    "assert-diff": "^1.0.1",
     "browserify": "^11.1.0",
     "gulp": "^3.9.0",
     "gulp-header": "^1.7.1",
