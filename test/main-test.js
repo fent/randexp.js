@@ -1,5 +1,5 @@
-var tests = require('./tests.js');
-var assert = require('assert');
+var tests   = require('./tests.js');
+var assert  = require('assert');
 var RandExp = require('..');
 var randexp = require('..').randexp;
 

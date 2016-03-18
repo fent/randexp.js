@@ -13,8 +13,8 @@ describe('Initialize RandExp with global()', function() {
 
     it('Regexp should match generated string', function() {
       // test if it works more than once
-      assert.equal(true, regexp.test(regexp.gen()));;
-      assert.equal(true, regexp.test(regexp.gen()));;
+      assert.equal(true, regexp.test(regexp.gen()));
+      assert.equal(true, regexp.test(regexp.gen()));
     });
 
     describe('Change its max property', function() {
