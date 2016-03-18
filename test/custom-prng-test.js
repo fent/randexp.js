@@ -1,6 +1,6 @@
-var assert = require('assert');
-
+var assert  = require('assert');
 var RandExp = require('..');
+
 
 var seed;
 // This is a simple "good enough" PRNG.
@@ -10,22 +10,22 @@ function prng(a, b) {
 }
 
 describe('Modify PRNG', function() {
-  it('Should generate the same string when the PRNG is seeded the same way', function() {
-    var initial_seed = Math.random() * Math.pow(2, 32) + Date.now();
+  it('Should generate the same string with the same the PRNG seed', function() {
+    var initialSeed = Math.random() * Math.pow(2, 32) + Date.now();
 
     var aRE = new RandExp(/.{100}/);
     aRE.randInt = prng;
-    seed = initial_seed;
+    seed = initialSeed;
     var a = aRE.gen();
 
     var bRE = new RandExp(/.{100}/);
     bRE.randInt = prng;
-    seed = initial_seed;
+    seed = initialSeed;
     var b = bRE.gen();
 
 
     RandExp.prototype.randInt = prng;
-    seed = initial_seed;
+    seed = initialSeed;
     var c = RandExp.randexp(/.{100}/);
 
     assert.equal(a, b, 'same seed should produce same output');
