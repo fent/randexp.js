@@ -50,7 +50,7 @@ require('randexp').sugar();
 
 # Motivation
 
-Regular expressions are used in every language, every programmer is familiar with them. Regex can be used to easily express complex strings. What better way to generate a random string than with a tool you can easily use to express the string any way you want?
+Regular expressions are used in every language, every programmer is familiar with them. Regex can be used to easily express complex strings. What better way to generate a random string than with a language you can use to express the string you want?
 
 Thanks to [String-Random](http://search.cpan.org/~steve/String-Random-0.22/lib/String/Random.pm) for giving me the idea to make this in the first place and [randexp](https://github.com/benburkert/randexp) for the sweet `.gen()` syntax.
 
@@ -67,13 +67,14 @@ randexp.gen();
 ```
 
 # Custom PRNG
+
 The default randomness is provided by `Math.random()`. If you need to use a seedable or cryptographic PRNG you
-can override `RandExp.prototype.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`. `randInt(from, to)` accepts an inclusive range and returns a randomly selected
+can override `RandExp.prototype.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`). `randInt(from, to)` accepts an inclusive range and returns a randomly selected
 number within that range.
 
 # Infinite Repetitionals
 
-Repetitional tokens such as `*`, `+`, and `{3,}` have an infinite max range. In this case, randexp looks at its min and adds 100 to it to get a useable max value. If you want to use another int other than 100 you can change the `max` property in the randexp object.
+Repetitional tokens such as `*`, `+`, and `{3,}` have an infinite max range. In this case, randexp looks at its min and adds 100 to it to get a useable max value. If you want to use another int other than 100 you can change the `max` property in `RandExp.prototype` or the RandExp instance.
 
 ```js
 var randexp = new RandExp(/no{1,}/);
