@@ -99,6 +99,14 @@ There are some regular expressions which can never match any string.
 * Custom negated character sets with two sets inside that cancel each other out. Example: `/[^\w\W]/`. If you give this to randexp, it will ignore both set tokens.
 
 
+# Projects based on randexp.js
+
+
+## JSON-Schema Faker
+
+Use generators to populate JSON Schema samples. See: [jsf on github](https://github.com/json-schema-faker/json-schema-faker/) and [jsf demo page](http://json-schema-faker.js.org/).
+
+
 # Install
 
 ### Node.js
