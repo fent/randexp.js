@@ -46,3 +46,34 @@ for (var type in tests) {
     describe(type, createDescribe(tests[type]));
   }
 }
+
+describe('Call with a string', function() {
+  it('Returns a correctly generated string', function() {
+    var r = new RandExp('\d{4}');
+    assert.equal(r.gen().length, 4);
+  });
+
+  describe('With options', function() {
+    it('Detects options and sets them', function() {
+      var r = new RandExp('hello', 'i');
+      assert.ok(r.ignoreCase);
+      assert.ok(!r.multiline);
+    });
+  });
+});
+
+describe('Call without a string or regular expression', function() {
+  it('Throws an error', function() {
+    assert.throws(function() {
+      var r = new RandExp({});
+      r.gen();
+    }, /Expected a regexp or string/);
+  });
+});
+
+describe('Followed by groups', function() {
+  it('Generate nothing, for now', function() {
+    assert.equal(randexp(/hi(?= no one)/), 'hi');
+    assert.equal(randexp(/hi(?! no one)/), 'hi');
+  });
+});
