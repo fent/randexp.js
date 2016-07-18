@@ -102,7 +102,7 @@ module.exports = {
 
   'Character Sets': {
     '[xyz]': {
-      regexp: [/[abc]/, /[a-z]/, /[0-4]/, /[a-zA-Z0-9]/, /[\w]/, /[\d]/, /[\s]/, /[\W]/, /[\D]/, /[\S]/],
+      regexp: [/[abcD!]/i, /[a-z]/, /[0-4]/, /[a-zA-Z0-9]/, /[\w]/, /[\d]/, /[\s]/, /[\W]/, /[\D]/, /[\S]/],
       desc: 'Matches any one character enclosed in the character set. You may use a hyphen to denote range.'
     },
 

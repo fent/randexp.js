@@ -17,7 +17,7 @@
   "author": "fent (https://github.com/fent)",
   "main": "./lib/randexp.js",
   "scripts": {
-    "test": "mocha -R spec test/*-test.js"
+    "test": "istanbul cover node_modules/.bin/_mocha test/*-test.js"
   },
   "directories": {
     "lib": "./lib"
@@ -32,7 +32,8 @@
     "gulp-header": "^1.7.1",
     "gulp-insert": "^0.5.0",
     "gulp-uglify": "^1.4.1",
-    "mocha": "x",
+    "istanbul": "*",
+    "mocha": "*",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
