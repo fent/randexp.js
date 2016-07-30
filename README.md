@@ -96,7 +96,7 @@ There are some regular expressions which can never match any string.
 
 * Back references to non-existing groups like `/(a)\1\2/`. Randexp will ignore those references, returning an empty string for them. If the group exists only after the reference is used such as in `/\1 (hey)/`, it will too be ignored.
 
-* Custom negated character sets with two sets inside that cancel each other out. Example: `/[^\w\W]/`. If you give this to randexp, it will ignore both set tokens.
+* Custom negated character sets with two sets inside that cancel each other out. Example: `/[^\w\W]/`. If you give this to randexp, it will return an empty string for this set since it can't match anything.
 
 
 # Projects based on randexp.js
