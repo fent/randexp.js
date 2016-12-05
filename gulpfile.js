@@ -30,8 +30,7 @@ gulp.task('build', function() {
       '// ${pkg.description}\n' +
       '//\n' +
       '// Copyright (C) ${year} by ${pkg.author}\n' +
-      '// ${pkg.licenses[0].type} License\n' +
-      '// ${pkg.licenses[0].url} \n' +
+      '// ${pkg.license} License\n' +
       '//\n', { pkg: pkg, year: new Date().getFullYear() }))
     .pipe(gulp.dest('build'));
 });
