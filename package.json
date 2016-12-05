@@ -38,10 +38,5 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/fent/randexp.js/raw/master/LICENSE"
-    }
-  ]
+  "license": "MIT"
 }
