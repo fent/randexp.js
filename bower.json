@@ -17,6 +17,7 @@
   "homepage": "https://github.com/fent/randexp.js",
   "ignore": [
     "**/.*",
+    "coverage",
     "gulpfile.js",
     "lib",
     "package.json",
