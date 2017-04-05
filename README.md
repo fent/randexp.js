@@ -122,7 +122,7 @@ Download the [minified version](https://github.com/fent/randexp.js/releases) fro
 
 # Tests
 
-Tests are written with [mocha](http://visionmedia.github.com/mocha/)
+Tests are written with [mocha](https://mochajs.org)
 
 ```bash
 npm test
