@@ -72,8 +72,27 @@ describe('Call without a string or regular expression', function() {
 });
 
 describe('Followed by groups', function() {
-  it('Generate nothing, for now', function() {
-    assert.equal(randexp(/hi(?= no one)/), 'hi');
-    assert.equal(randexp(/hi(?! no one)/), 'hi');
+  it('Respects positive lookaheads', function() {
+    var pattern = '^(?=a).$';
+    var r = new RandExp(pattern);
+    var example = r.gen();
+    assert.equal(example.length, 1);
+    assert.equal(example, 'a')
+
+    var match = example.match(pattern);
+
+    assert.equal(match.length, 1);
+    assert.equal(match[0], 'a');
+  });
+
+  it('Generate positive lookahead pattern', function() {
+    var positivePattern = /hi(?= no one)/;
+    var negativePattern = /hi(?! no one)/;
+    assert.equal(randexp(positivePattern), 'hi no one');
+    assert.equal(randexp(negativePattern), 'hi');
+    assert.equal(randexp(positivePattern).match(positivePattern)[0], 'hi');
+    assert.equal(randexp(positivePattern).match(negativePattern), null);
+    assert.equal(randexp(negativePattern).match(negativePattern)[0], 'hi');
+    assert.equal(randexp(negativePattern).match(positivePattern), null);
   });
 });
