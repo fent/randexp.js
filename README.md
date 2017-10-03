@@ -108,6 +108,10 @@ There are some regular expressions which can never match any string.
 
 Use generators to populate JSON Schema samples. See: [jsf on github](https://github.com/json-schema-faker/json-schema-faker/) and [jsf demo page](http://json-schema-faker.js.org/).
 
+## Random Name Generator
+
+Use generator to create small random name based loosely on English consonant and vowel rules. See: [NameGenerator on Github](https://github.com/rekaj3773/NameGenerator).
+
 
 # Install
 
