@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "discontinuous-range": "1.0.0",
-    "ret": "~0.1.10"
+    "ret": "~0.2.0"
   },
   "devDependencies": {
     "browserify": "^14.0.0",
