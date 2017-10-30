@@ -54,6 +54,10 @@ var examples = [
   {
     title: 'Time',
     regexp: /(1[0-2]|0[1-9])(:[0-5]\d){2} (A|P)M/
+  },
+  {
+    title: 'Simple Name',
+    regexp:/([aeiouy][bcdfghjklmnpqrstvwxz]([bcdfghjklmnpqrstvwxz]([aeiouy][bcdfghjklmnpqrstvwxz]?)?|[aeiouy]([bcdfghjklmnpqrstvwxz]([bcdfghjklmnpqrstvwxz]|[aeiouy])?)?)|[bcdfghjklmnpqrstvwxz][aeiouy][bcdfghjklmnpqrstvwxz]([aeiouy]([bcdfghjklmnpqrstvwxz])?|[bcdfghjklmnpqrstvwxz]([aeiouy])?)?)/
   }
 ];
 
