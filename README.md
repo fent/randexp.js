@@ -9,7 +9,7 @@ randexp will generate a random string that matches a given RegExp Javascript obj
 # Usage
 
 ```js
-var RandExp = require('randexp');
+const RandExp = require('randexp');
 
 // supports grouping and piping
 new RandExp(/hello+ (world|to you)/).gen();
@@ -36,7 +36,7 @@ new RandExp(new RegExp('(sun|mon|tue|wednes|thurs|fri|satur)day', 'i'));
 If you're only going to use `gen()` once with a regexp and want slightly shorter syntax for it
 
 ```js
-var randexp = require('randexp').randexp;
+const randexp = require('randexp').randexp;
 
 randexp(/[1-6]/); // 4
 randexp('great|good( job)?|excellent'); // great
@@ -58,35 +58,36 @@ Thanks to [String-Random](http://search.cpan.org/~steve/String-Random-0.22/lib/S
 
 # Default Range
 
-The default generated character range includes printable ASCII.  In order to add or remove characters,
+The default generated character range includes printable ASCII. In order to add or remove characters,
 a `defaultRange` attribute is exposed. you can `subtract(from, to)` and `add(from, to)`
 ```js
-var randexp = new RandExp(/random stuff: .+/);
+const randexp = new RandExp(/random stuff: .+/);
 randexp.defaultRange.subtract(32, 126);
 randexp.defaultRange.add(0, 65535);
 randexp.gen();
 // => random stuff: 湐箻ໜ䫴␩⶛㳸長���邓蕲뤀쑡篷皇硬剈궦佔칗븛뀃匫鴔事좍ﯣ⭼ꝏ䭍詳蒂䥂뽭
 ```
 
+You can also change the default range by changing `RandExp.prototype.defaultRange`.
+
 # Custom PRNG
 
 The default randomness is provided by `Math.random()`. If you need to use a seedable or cryptographic PRNG, you
-can override `RandExp.prototype.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`). `randInt(from, to)` accepts an inclusive range and returns a randomly selected
-number within that range.
+can override `RandExp.prottoype.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`). `randInt(from, to)` accepts an inclusive range and returns a randomly selected number within that range.
 
 # Infinite Repetitionals
 
 Repetitional tokens such as `*`, `+`, and `{3,}` have an infinite max range. In this case, randexp looks at its min and adds 100 to it to get a useable max value. If you want to use another int other than 100 you can change the `max` property in `RandExp.prototype` or the RandExp instance.
 
 ```js
-var randexp = new RandExp(/no{1,}/);
+const randexp = new RandExp(/no{1,}/);
 randexp.max = 1000000;
 ```
 
 With `RandExp.sugar()`
 
 ```js
-var regexp = /(hi)*/;
+const regexp = /(hi)*/;
 regexp.max = 1000000;
 ```
 
