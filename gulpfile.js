@@ -1,13 +1,13 @@
-var gulp       = require('gulp');
-var browserify = require('browserify');
-var uglify     = require('gulp-uglify');
-var source     = require('vinyl-source-stream');
-var buffer     = require('vinyl-buffer');
-var header     = require('gulp-header');
-var insert     = require('gulp-insert');
-var pkg        = require('./package.json');
+const gulp       = require('gulp');
+const browserify = require('browserify');
+const uglify     = require('gulp-uglify');
+const source     = require('vinyl-source-stream');
+const buffer     = require('vinyl-buffer');
+const header     = require('gulp-header');
+const insert     = require('gulp-insert');
+const pkg        = require('./package.json');
 
-gulp.task('build', function() {
+gulp.task('build', () => {
   return browserify(pkg.main).bundle()
     .pipe(source(pkg.name + '.min.js'))
     .pipe(buffer())
