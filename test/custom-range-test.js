@@ -1,9 +1,9 @@
-var assert  = require('assert');
-var RandExp = require('..');
+const assert  = require('assert');
+const RandExp = require('..');
 
 
-describe('Modify Range', function() {
-  it('Should generate unicode when we expand its range', function() {
+describe('Modify Range', () => {
+  it('Should generate unicode when we expand its range', () => {
     var re = new RandExp(/.{100}/);
     re.defaultRange.subtract(0, 126);
     re.defaultRange.add(127, 65535);

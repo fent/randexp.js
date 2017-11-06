@@ -112,7 +112,7 @@ module.exports = {
     },
 
     'Bad Custom Sets': {
-      regexp: [/[^\W\w]/, /[^\D\d]/, /[^\S\s]/, /[]/],
+      regexp: [/[^\W\w]/, /[^\D\d]/, /[^\S\s]/, /[^\W\w]/],
       desc: 'A string that matches these regular expressions does not exist',
       bad: true
     },

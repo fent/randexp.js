@@ -1,19 +1,19 @@
-var assert  = require('assert');
-var RandExp = require('..');
+const assert  = require('assert');
+const RandExp = require('..');
 
 
 // This is a simple "good enough" PRNG.
 var initialSeed = Math.random() * Math.pow(2, 32) + Date.now();
 function prng() {
   var seed = initialSeed;
-  return function(a, b) {
+  return (a, b) => {
     seed = Math.pow(seed, 2) % 94906249;
     return seed % (1 + b - a) + a;
   };
 }
 
-describe('Modify PRNG', function() {
-  it('Should generate the same string with the same the PRNG seed', function() {
+describe('Modify PRNG', () => {
+  it('Should generate the same string with the same the PRNG seed', () => {
     var aRE = new RandExp(/.{100}/);
     aRE.randInt = prng();
     var a = aRE.gen();
