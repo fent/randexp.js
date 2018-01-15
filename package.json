@@ -31,7 +31,7 @@
     "ret": "~0.2.0"
   },
   "devDependencies": {
-    "browserify": "^14.0.0",
+    "browserify": "^15.2.0",
     "gulp": "^3.9.0",
     "gulp-header": "^1.7.1",
     "gulp-insert": "^0.5.0",
