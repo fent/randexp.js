@@ -27,7 +27,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "discontinuous-range": "fent/discontinuous-range#feature\/intersect",
+    "discontinuous-range": "fent/discontinuous-range#feature/intersect",
     "ret": "~0.2.0"
   },
   "devDependencies": {
