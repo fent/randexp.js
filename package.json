@@ -27,8 +27,8 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "discontinuous-range": "fent/discontinuous-range#feature/intersect",
-    "ret": "~0.2.0"
+    "discontinuous-range": "github:fent/discontinuous-range#feature/intersect",
+    "ret": "^0.2.0"
   },
   "devDependencies": {
     "browserify": "^15.2.0",
@@ -37,9 +37,9 @@
     "gulp-insert": "^0.5.0",
     "gulp-uglify": "^3.0.0",
     "istanbul": "*",
-    "mocha": "*",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "mocha": "^5.0.0",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^1.1.2"
   },
   "engines": {
     "node": ">=4"
