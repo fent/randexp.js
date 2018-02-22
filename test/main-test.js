@@ -53,6 +53,13 @@ describe('Call with a string', () => {
   });
 });
 
+describe('Call shorthand randexp method with a string', () => {
+  it('Returns a correctly generated string', () => {
+    var r = randexp('\\d{4}');
+    assert.equal(r.length, 4);
+  });
+});
+
 describe('Call without a string or regular expression', () => {
   it('Throws an error', () => {
     assert.throws(() => {
