@@ -1,5 +1,3 @@
-'use strict';
-
 const tests   = require('./tests.js');
 const assert  = require('assert');
 const RandExp = require('..');
