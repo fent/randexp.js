@@ -131,12 +131,12 @@ npm test
 
 # Integration with TypeScript
 
-DRange includes TypeScript definitions.
+RandExp includes TypeScript definitions.
 
 ```typescript
 import * as RandExp from "randexp";
-const randExp = new RandExp(/[a-z]{6}/);
-RandExp.gen();
+const randexp = new RandExp(/[a-z]{6}/);
+randexp.gen();
 ```
 
 Use dtslint to check the definition file.
