@@ -17,17 +17,19 @@
   "author": "fent (https://github.com/fent)",
   "main": "./lib/randexp.js",
   "files": [
-    "lib"
+    "lib",
+    "types/index.d.ts"
   ],
   "scripts": {
     "version": "gulp build && git add build",
-    "test": "istanbul cover node_modules/.bin/_mocha -- test/*-test.js"
+    "test": "istanbul cover node_modules/.bin/_mocha -- test/*-test.js",
+    "dtslint": "dtslint types --onlyTestTsNext"
   },
   "directories": {
     "lib": "./lib"
   },
   "dependencies": {
-    "drange": "^1.0.0",
+    "drange": "^1.0.2",
     "ret": "^0.2.0"
   },
   "devDependencies": {
@@ -44,5 +46,6 @@
   "engines": {
     "node": ">=4"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "types": "./types"
 }

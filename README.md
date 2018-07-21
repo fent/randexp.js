@@ -128,3 +128,18 @@ Tests are written with [mocha](https://mochajs.org)
 ```bash
 npm test
 ```
+
+# Integration with TypeScript
+
+RandExp includes TypeScript definitions.
+
+```typescript
+import * as RandExp from "randexp";
+const randexp = new RandExp(/[a-z]{6}/);
+randexp.gen();
+```
+
+Use dtslint to check the definition file.
+
+    npm install -g dtslint
+    npm run dtslint
