@@ -73,7 +73,7 @@ You can also change the default range by changing `RandExp.prototype.defaultRang
 # Custom PRNG
 
 The default randomness is provided by `Math.random()`. If you need to use a seedable or cryptographic PRNG, you
-can override `RandExp.prottoype.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`). `randInt(from, to)` accepts an inclusive range and returns a randomly selected number within that range.
+can override `RandExp.prototype.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`). `randInt(from, to)` accepts an inclusive range and returns a randomly selected number within that range.
 
 # Infinite Repetitionals
 
