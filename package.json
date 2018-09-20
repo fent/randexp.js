@@ -29,7 +29,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "drange": "^1.0.2",
+    "drange": "^2.0.0",
     "ret": "^0.2.0"
   },
   "devDependencies": {
