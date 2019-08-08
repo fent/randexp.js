@@ -134,7 +134,7 @@ npm test
 RandExp includes TypeScript definitions.
 
 ```typescript
-import * as RandExp from "randexp";
+import RandExp from "randexp";
 const randexp = new RandExp(/[a-z]{6}/);
 randexp.gen();
 ```
