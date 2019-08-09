@@ -4,12 +4,12 @@ const RandExp = require('..');
 
 describe('Modify max', () => {
   it('Should generate infinite repetitionals with new max', () => {
-    var re = new RandExp(/.*/);
+    let re = new RandExp(/.*/);
     re.max = 0;
-    var output = re.gen();
+    let output = re.gen();
     assert.equal(output, '');
 
-    var r = /.*/;
+    let r = /.*/;
     r.max = 0;
     output = RandExp.randexp(r);
     assert.equal(output, '');

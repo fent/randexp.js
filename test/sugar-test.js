@@ -5,7 +5,7 @@ require('..').sugar();
 
 describe('Initialize RandExp with global()', () => {
   describe('Create a regular expression', () => {
-    var regexp = /.ff something+/;
+    let regexp = /.ff something+/;
 
     it('Should have a `gen` getter', () => {
       assert.equal(true, typeof (regexp.gen) === 'function');
