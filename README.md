@@ -58,7 +58,11 @@ Thanks to [String-Random](http://search.cpan.org/~steve/String-Random-0.22/lib/S
 
 # Default Range
 
-The default generated character range includes printable ASCII. In order to add or remove characters,
+The default generated character range includes printable ASCII characters.
+
+![ascii table](ascii.png)
+
+In order to add or remove characters,
 a `defaultRange` attribute is exposed. you can `subtract(from, to)` and `add(from, to)`
 ```js
 const randexp = new RandExp(/random stuff: .+/);
