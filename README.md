@@ -2,7 +2,7 @@
 
 randexp will generate a random string that matches a given RegExp Javascript object.
 
-[![Dependency Status](https://david-dm.org/fent/randexp.js.svg)](https://david-dm.org/fent/randexp.js)
+![Depfu](https://img.shields.io/depfu/fent/randexp.js)
 [![codecov](https://codecov.io/gh/fent/randexp.js/branch/master/graph/badge.svg)](https://codecov.io/gh/fent/randexp.js)
 
 # Usage
