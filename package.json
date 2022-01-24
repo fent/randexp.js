@@ -21,7 +21,6 @@
     "types/index.d.ts"
   ],
   "scripts": {
-    "version": "gulp build && git add build",
     "test": "istanbul cover node_modules/.bin/_mocha -- test/*-test.js",
     "dtslint": "dtslint types --onlyTestTsNext"
   },
@@ -33,15 +32,8 @@
     "ret": "^0.3.2"
   },
   "devDependencies": {
-    "browserify": "^16.2.3",
-    "gulp": "^4.0.0",
-    "gulp-header": "^2.0.1",
-    "gulp-insert": "^0.5.0",
-    "gulp-uglify": "^3.0.0",
     "istanbul": "*",
-    "mocha": "^7.0.1",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
+    "mocha": "^7.0.1"
   },
   "engines": {
     "node": ">=8"
