@@ -21,7 +21,7 @@
     "types/index.d.ts"
   ],
   "scripts": {
-    "test": "istanbul cover node_modules/.bin/_mocha -- test/*-test.js",
+    "test": "nyc --reporter=lcov --reporter=text-summary mocha -- test/*-test.js",
     "dtslint": "dtslint types --onlyTestTsNext"
   },
   "directories": {
@@ -32,8 +32,8 @@
     "ret": "^0.3.2"
   },
   "devDependencies": {
-    "istanbul": "*",
-    "mocha": "^7.0.1"
+    "mocha": "^7.0.1",
+    "nyc": "^15.1.0"
   },
   "engines": {
     "node": ">=8"
