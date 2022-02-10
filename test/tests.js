@@ -84,7 +84,7 @@ module.exports = {
     },
 
     '\\XXX': {
-      regexp: /\50/,
+      regexp: [/\108/, /\50/],
       desc: 'Matches the ASCII character expressed by the octal number XXX.'
     },
 
