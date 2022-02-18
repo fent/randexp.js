@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "drange": "^2.0.1",
-    "ret": "^0.3.2"
+    "ret": "^0.4.2"
   },
   "devDependencies": {
     "browserify": "^16.2.3",
