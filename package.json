@@ -47,5 +47,6 @@
     "node": ">=8"
   },
   "license": "MIT",
-  "types": "./types"
+  "types": "./types",
+  "sideEffects": false
 }
