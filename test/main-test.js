@@ -67,8 +67,23 @@ describe('Call without a string or regular expression', () => {
 });
 
 describe('Followed by groups', () => {
-  it('Generate nothing, for now', () => {
-    assert.equal(randexp(/hi(?= no one)/), 'hi');
-    assert.equal(randexp(/hi(?! no one)/), 'hi');
+  it('Generate a string that matches the lookahead', () => {
+    let str = randexp(/hi(?= there)/);
+    assert.ok(/hi(?= there)/.test(str));
+  });
+
+  it('Generate a string that does not match the negative lookahead', () => {
+    let str = randexp(/hi(?! there)/);
+    assert.ok(!/hi(?! there)/.test(str));
+  });
+  
+  it('Generate a string that matches a complex lookahead', () => {
+      let str = randexp(/(?=a)(?=b)(?=c)/);
+      assert.ok(/(?=a)(?=b)(?=c)/.test(str));
+  });
+
+    it('Generate a string that does not match a complex negative lookahead', () => {
+      let str = randexp(/(?!a)(?!b)(?!c)/);
+      assert.ok(!/(?!a)(?!b)(?!c)/.test(str));
   });
 });
