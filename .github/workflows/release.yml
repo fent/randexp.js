@@ -1,8 +1,8 @@
 name: Release
 on:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: '0 15 * * *'
+  workflow_dispatch:
 jobs:
   release:
     name: Release
