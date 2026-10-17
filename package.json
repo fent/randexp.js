@@ -15,29 +15,30 @@
     "url": "git://github.com/fent/randexp.js.git"
   },
   "author": "fent <fentbox@gmail.com> (https://github.com/fent)",
-  "main": "./lib/randexp.js",
+  "main": "./dist/randexp.js",
   "files": [
-    "lib",
-    "types/index.d.ts"
+    "dist"
   ],
   "scripts": {
-    "test": "nyc --reporter=lcov --reporter=text-summary mocha -- test/*-test.js",
-    "dtslint": "dtslint types --onlyTestTsNext"
-  },
-  "directories": {
-    "lib": "./lib"
+    "prepare": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "nyc --extension .ts --reporter=lcov --reporter=text-summary npm run test:unit",
+    "test:unit": "mocha --require ts-node/register test/*-test.ts"
   },
   "dependencies": {
     "drange": "^2.0.1",
-    "ret": "^0.3.2"
+    "ret": "^0.5.1"
   },
   "devDependencies": {
-    "mocha": "^7.0.1",
-    "nyc": "^15.1.0"
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.9.0",
+    "mocha": "^11.8.0",
+    "nyc": "^15.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
   },
   "engines": {
     "node": ">=8"
   },
-  "license": "MIT",
-  "types": "./types"
+  "license": "MIT"
 }

@@ -71,16 +71,16 @@ randexp.gen();
 // => random stuff: 湐箻ໜ䫴␩⶛㳸長���邓蕲뤀쑡篷皇硬剈궦佔칗븛뀃匫鴔事좍ﯣ⭼ꝏ䭍詳蒂䥂뽭
 ```
 
-You can also change the default range by changing `RandExp.prototype.defaultRange`.
+You can also change the default range by changing `RandExp.defaultRange`.
 
 # Custom PRNG
 
 The default randomness is provided by `Math.random()`. If you need to use a seedable or cryptographic PRNG, you
-can override `RandExp.prototype.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`). `randInt(from, to)` accepts an inclusive range and returns a randomly selected number within that range.
+can override `RandExp.randInt` or `randexp.randInt` (where `randexp` is an instance of `RandExp`). `randInt(from, to)` accepts an inclusive range and returns a randomly selected number within that range.
 
 # Infinite Repetitionals
 
-Repetitional tokens such as `*`, `+`, and `{3,}` have an infinite max range. In this case, randexp looks at its min and adds 100 to it to get a useable max value. If you want to use another int other than 100 you can change the `max` property in `RandExp.prototype` or the RandExp instance.
+Repetitional tokens such as `*`, `+`, and `{3,}` have an infinite max range. In this case, randexp looks at its min and adds 100 to it to get a useable max value. If you want to use another int other than 100 you can change `RandExp.max` or the RandExp instance.
 
 ```js
 const randexp = new RandExp(/no{1,}/);
@@ -98,7 +98,7 @@ regexp.max = 1000000;
 
 There are some regular expressions which can never match any string.
 
-* Ones with badly placed positionals such as `/a^/` and `/$c/m`. Randexp will ignore positional tokens.
+* Badly placed positionals such as `/a^/` and `/$c/m`. Randexp will ignore positional tokens.
 
 * Back references to non-existing groups like `/(a)\1\2/`. Randexp will ignore those references, returning an empty string for them. If the group exists only after the reference is used such as in `/\1 (hey)/`, it will too be ignored.
 
@@ -132,22 +132,7 @@ Tests are written with [mocha](https://mochajs.org)
 npm test
 ```
 
-# Integration with TypeScript
-
-RandExp includes TypeScript definitions.
-
-```typescript
-import RandExp from "randexp";
-const randexp = new RandExp(/[a-z]{6}/);
-randexp.gen();
-```
-
-Use dtslint to check the definition file.
-
-    npm install -g dtslint
-    npm run dtslint
-
-
 # Security
 
 To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
+
