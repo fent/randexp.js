@@ -14,39 +14,32 @@
     "type": "git",
     "url": "git://github.com/fent/randexp.js.git"
   },
-  "author": "fent (https://github.com/fent)",
-  "main": "./lib/randexp.js",
+  "author": "fent <fentbox@gmail.com> (https://github.com/fent)",
+  "main": "./dist/randexp.js",
   "files": [
-    "lib",
-    "types/index.d.ts"
+    "dist"
   ],
   "scripts": {
-    "version": "gulp build && git add build",
-    "test": "istanbul cover node_modules/.bin/_mocha -- test/*-test.js",
-    "dtslint": "dtslint types --onlyTestTsNext"
-  },
-  "directories": {
-    "lib": "./lib"
+    "prepare": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "nyc --extension .ts --reporter=lcov --reporter=text-summary npm run test:unit",
+    "test:unit": "mocha --require ts-node/register test/*-test.ts"
   },
   "dependencies": {
     "drange": "^2.0.1",
-    "ret": "^0.3.2"
+    "ret": "^0.5.1"
   },
   "devDependencies": {
-    "browserify": "^16.2.3",
-    "gulp": "^4.0.0",
-    "gulp-header": "^2.0.1",
-    "gulp-insert": "^0.5.0",
-    "gulp-uglify": "^3.0.0",
-    "istanbul": "*",
-    "mocha": "^7.0.1",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.9.0",
+    "mocha": "^11.8.0",
+    "nyc": "^15.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
   },
   "engines": {
     "node": ">=8"
   },
-  "license": "MIT",
-  "types": "./types",
-  "sideEffects": false
+  "sideEffects": false,
+  "license": "MIT"
 }
