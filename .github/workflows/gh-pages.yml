@@ -1,0 +1,45 @@
+name: Deploy to Github Pages
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+          npm run build:browser
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-branch
+
+      - name: Update randexp.min.js on gh-pages
+        run: |
+          cp dist/randexp.min.js gh-pages-branch/randexp.min.js
+          cd gh-pages-branch
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add randexp.min.js
+          git diff --staged --quiet || git commit -m "chore: update randexp.min.js"
+          git push
