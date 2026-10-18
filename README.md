@@ -2,7 +2,8 @@
 
 randexp will generate a random string that matches a given RegExp Javascript object.
 
-![Depfu](https://img.shields.io/depfu/fent/randexp.js)
+[![npm](https://img.shields.io/npm/v/randexp)](https://www.npmjs.com/package/randexp)
+[![Node.js CI](https://github.com/fent/randexp.js/actions/workflows/nodejs.yml/badge.svg)](https://github.com/fent/randexp.js/actions/workflows/nodejs.yml)
 [![codecov](https://codecov.io/gh/fent/randexp.js/branch/master/graph/badge.svg)](https://codecov.io/gh/fent/randexp.js)
 
 # Usage
