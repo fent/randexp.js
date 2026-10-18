@@ -126,6 +126,7 @@ function createExample(item, i) {
 
   // Create main example container.
   const container = document.createElement('div');
+  container.className = 'example-card';
   parentDiv.appendChild(container);
 
   // Add optional title.
@@ -137,6 +138,7 @@ function createExample(item, i) {
 
   // Add top div.
   const topContainer = document.createElement('div');
+  topContainer.className = 'example-input-group';
   topContainer.append('new RandExp(');
   topContainer.appendChild(field);
   topContainer.append(', ');
