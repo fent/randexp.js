@@ -27,9 +27,7 @@ pre.code { background: #000; color: #fff; padding: 10px;}
 }
 
 .field, .result, .mod {
-  -webkit-border-radius: 10px;
-     -mox-border-radius: 10px;
-          border-radius: 10px;
+  border-radius: 10px;
   font-size: 100%;
   font-weight: bold;
   padding: 0 3px;
@@ -60,6 +58,20 @@ pre.code { background: #000; color: #fff; padding: 10px;}
   width: 100%;
   min-height: 2em;
   word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .err { color: red }
+
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out;
+}
+@keyframes octocat-wave {
+  0%, 100% { transform: rotate(0); }
+  20%, 60% { transform: rotate(-25deg); }
+  40%, 80% { transform: rotate(10deg); }
+}
+@media (max-width: 500px) {
+  .github-corner:hover .octo-arm { animation: none; }
+  .github-corner .octo-arm { animation: octocat-wave 560ms ease-in-out; }
+}

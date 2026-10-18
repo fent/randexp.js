@@ -1,59 +1,61 @@
 // Thank you CD Sanchez from StackOerflow for this HashSearch function.
-window.HashSearch = (function() {
-  var self = {};
-  var params = {};
-  var hashStr = window.location.hash;
-  hashStr = hashStr.substring(1, hashStr.length);
-  var hashArray = hashStr.split('&');
+window.HashSearch = (() => {
+  const parseParams = () => {
+    const hash = window.location.hash.slice(1);
+    const params = new Map();
+    if (!hash) return params;
 
-  for (var i = 0; i < hashArray.length; i++) {
-    var ss = hashArray[i];
-    if (ss === '') { continue; }
-    var keyVal = ss.split('=');
-    var value = typeof keyVal[1] !== 'undefined' ? unescape(keyVal[1]) : true;
-    params[unescape(keyVal[0])] = value;
-  }
-
-  self.set = function(key, value) {
-    params[key] = value;
-    self.push();
-  };
-
-  self.remove = function(key) {
-    delete params[key];
-    self.push();
-  };
-
-  self.get = function(key) {
-    return params[key];
-  };
-
-  self.keyExists = function(key) {
-    return params.hasOwnProperty(key);
-  };
-
-  var timeoutSet = false;
-  function updateHash() {
-    timeoutSet = false;
-    var hashBuilder = [];
-
-    for (var key in params) if (params.hasOwnProperty(key)) {
-      var ss = escape(key); // escape(undefined) == "undefined"
-      var value = params[key];
-      if (typeof value !== 'boolean') {
-        ss += '=' + escape(value);
-      }
-      hashBuilder.push(ss);
+    for (const part of hash.split('&')) {
+      if (!part) continue;
+      const [rawKey, rawVal] = part.split('=');
+      const key = decodeURIComponent(rawKey);
+      const val = rawVal !== undefined ? decodeURIComponent(rawVal) : true;
+      params.set(key, val);
     }
-
-    window.location.hash = hashBuilder.join('&');
-  }
-
-  self.push = function() {
-    if (timeoutSet) { return; }
-    timeoutSet = true;
-    setTimeout(updateHash);
+    return params;
   };
 
-  return self;
+  const params = parseParams();
+  let timer = null;
+
+  const updateHash = () => {
+    timer = null;
+    const parts = [];
+    for (const [key, val] of params) {
+      if (val === true) {
+        parts.push(encodeURIComponent(key));
+      } else {
+        parts.push(`${encodeURIComponent(key)}=${encodeURIComponent(val)}`);
+      }
+    }
+    window.location.hash = parts.join('&');
+  };
+
+  const push = () => {
+    if (timer) return;
+    timer = setTimeout(updateHash);
+  };
+
+  return {
+    set(key, value) {
+      params.set(key, value);
+      push();
+    },
+
+    remove(key) {
+      params.delete(key);
+      push();
+    },
+
+    get(key) {
+      return params.get(key);
+    },
+
+    keyExists(key) {
+      return params.has(key);
+    },
+
+    push,
+  };
 })();
+

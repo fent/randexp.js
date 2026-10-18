@@ -1,16 +1,17 @@
-/*global RandExp, HashSearch */
-var first = /hello+ (world|to you)/i;
-if (HashSearch.keyExists('r')) {
-  try {
-    var m = HashSearch.keyExists('i') ? 'i' : '';
-    m += HashSearch.keyExists('m') ? 'm' : '';
-    first = new RegExp(HashSearch.get('r'), m);
-  } catch (err) {}
-}
+const getInitialRegex = () => {
+  let first = /hello+ (world|to you)/i;
+  if (HashSearch.keyExists('r')) {
+    try {
+      let m = HashSearch.keyExists('i') ? 'i' : '';
+      m += HashSearch.keyExists('m') ? 'm' : '';
+      first = new RegExp(HashSearch.get('r'), m);
+    } catch {}
+  }
+  return first;
+};
 
-var examples = [
-  /*jshint maxlen:false */
-  first,
+const examples = [
+  getInitialRegex(),
   {
     title: 'Date',
     regexp: /(January|February|March|April|May|June|July|August|September|October|November|December) ([1-9]|[12][0-9]|3[01]), (19|20)[0-9][0-9]/
@@ -59,127 +60,134 @@ var examples = [
 
 
 function enterFn(fn) {
-  return function(e) {
-    if (e.keyCode === 13) {
+  return (e) => {
+    if (e.key === 'Enter') {
       fn();
     }
   };
 }
 
+let tryItDiv;
+let examplesDiv;
 
-var tryItDiv, examplesDiv;
-function example(regexp, i) {
-  var parentDiv = i === 0 ? tryItDiv : examplesDiv;
-  var field = $('<input/>');
-  var mod = $('<input/>');
-  var result = $('<div/>');
-  var previousVal, previousM, randexp;
+function createExample(item, i) {
+  const parentDiv = i === 0 ? tryItDiv : examplesDiv;
+  const field = document.createElement('input');
+  const mod = document.createElement('input');
+  const result = document.createElement('div');
+  let previousVal;
+  let previousM;
+  let randexp;
 
   function gen(pageload) {
-    var val, m;
-    var change = false;
-    result.removeClass('err');
+    let change = false;
+    result.classList.remove('err');
 
     try {
-      val = field.val();
-      m = mod.val();
+      const val = field.value;
+      const m = mod.value;
 
-      if ((val !== previousVal) || m !== previousM) {
+      if (val !== previousVal || m !== previousM) {
         change = true;
         randexp = new RandExp(val, m);
         previousVal = val;
         previousM = m;
       }
 
-      result.text(randexp.gen());
-      result.html(result.html().replace(/\n/, '<br />'));
-
+      result.textContent = randexp.gen();
     } catch (err) {
-      result.addClass('err');
-      result.text(err.message);
+      result.classList.add('err');
+      result.textContent = err.message;
     }
 
     // Only change hash on try it now div.
     if (change && !pageload && parentDiv === tryItDiv) {
-      HashSearch.set('r', val);
+      HashSearch.set('r', field.value);
       HashSearch.remove('i');
       HashSearch.remove('m');
-      for (var i = 0, l = m.length; i < l; i++) {
-        HashSearch.set(m[i], true);
+      for (const char of mod.value) {
+        HashSearch.set(char, true);
       }
     }
   }
 
   // Populate fields.
-  field.addClass('field');
-  field.val(
-    (regexp.source || regexp.regexp.source)
-    .replace(/\\\//g, function() { return '/'; })
-  );
-  mod.addClass('mod');
-  if (regexp.ignoreCase) {
-    mod.val('i');
-  }
-  if (regexp.multiline) {
-    mod.val(mod.val() + 'm');
-  }
-  result.addClass('result');
+  field.className = 'field';
+  const regexp = item.regexp || item;
+  field.value = (regexp.source || regexp.regexp.source).replace(/\\\//g, '/');
 
+  mod.className = 'mod';
+  let initialFlags = '';
+  if (regexp.ignoreCase) initialFlags += 'i';
+  if (regexp.multiline) initialFlags += 'm';
+  mod.value = initialFlags;
 
-  // Crate main example container.
-  var container = $('<div/>')
-    .appendTo(parentDiv);
+  result.className = 'result';
+
+  // Create main example container.
+  const container = document.createElement('div');
+  parentDiv.appendChild(container);
 
   // Add optional title.
-  if (regexp.title) {
-    container.append($('<h3/>').text(regexp.title));
+  if (item.title) {
+    const title = document.createElement('h3');
+    title.textContent = item.title;
+    container.appendChild(title);
   }
 
   // Add top div.
-  var topContainer = $('<div/>')
-    .append('new RandExp(')
-    .append(field)
-    .append(', ')
-    .append(mod)
-    .append(')')
-    .appendTo(container);
+  const topContainer = document.createElement('div');
+  topContainer.append('new RandExp(');
+  topContainer.appendChild(field);
+  topContainer.append(', ');
+  topContainer.appendChild(mod);
+  topContainer.append(')');
 
   // Make a button to generate the randexp when clicked.
-  $('<button/>')
-    .addClass('gen').text('.gen()')
-    .appendTo(topContainer)
-    .click(function() { gen(); });
+  const genBtn = document.createElement('button');
+  genBtn.className = 'gen';
+  genBtn.textContent = '.gen()';
+  genBtn.addEventListener('click', () => gen());
+  topContainer.appendChild(genBtn);
 
   // Append to main example container.
-  container.append(result);
+  container.appendChild(topContainer);
+  container.appendChild(result);
 
   // Generate randexp on page load.
   gen(true);
 
   // Generate randexp on enter key press.
-  var enterKey = enterFn(gen);
-  field.on('keydown', enterKey);
-  mod.on('keydown', enterKey);
-}
+  const enterKey = enterFn(gen);
+  field.addEventListener('keydown', enterKey);
+  mod.addEventListener('keydown', enterKey);
 
-$(function() {
-  tryItDiv = $('#tryit');
-  examplesDiv = $('#examples');
-  examplesDiv.css('display', 'none');
-
-  for (var i = 0, l = examples.length; i < l; i++) {
-    example(examples[i], i);
-  }
-
-  examplesDiv.css('display', 'block');
-
-  // Filter modifier input to only allow the characters set 'im'.
-  $('.mod').on('keypress', function(e) {
-    var c = e.keyCode;
-    if ((c !== 105 && c !== 109) ||
-      $(this).val()
-        .indexOf(String.fromCharCode(c)) !== -1) {
+  // Filter modifier input to only allow the character set 'im'.
+  mod.addEventListener('keypress', (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey || e.key.length > 1) return;
+    if (e.key !== 'i' && e.key !== 'm') {
+      e.preventDefault();
+      return;
+    }
+    const selectedText = mod.value.slice(mod.selectionStart, mod.selectionEnd);
+    if (mod.value.includes(e.key) && !selectedText.includes(e.key)) {
       e.preventDefault();
     }
   });
+  mod.addEventListener('input', () => {
+    mod.value = [...new Set(mod.value.toLowerCase().replace(/[^im]/g, ''))].join('');
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  tryItDiv = document.getElementById('tryit');
+  examplesDiv = document.getElementById('examples');
+  examplesDiv.style.display = 'none';
+
+  examples.forEach((item, i) => {
+    createExample(item, i);
+  });
+
+  examplesDiv.style.display = 'block';
 });
+
