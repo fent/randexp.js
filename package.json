@@ -42,5 +42,6 @@
   "engines": {
     "node": ">=8"
   },
+  "sideEffects": false,
   "license": "MIT"
 }
