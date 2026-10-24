@@ -1,5 +1,14 @@
-import { default as ret, Set, Char, Range, Root, Tokens, types } from "ret";
-import DRange = require("drange");
+import {
+  type Char,
+  type Range,
+  type Set as RetSet,
+  type Root,
+  default as ret,
+  type Tokens,
+  types,
+} from 'ret';
+
+import DRange = require('drange');
 
 export interface RandRegExp extends RegExp {
   max: number;
@@ -22,11 +31,11 @@ export default class RandExp {
       this.ignoreCase = regexp.ignoreCase;
       this.multiline = regexp.multiline;
       regexp = regexp.source;
-    } else if (typeof regexp === "string") {
-      this.ignoreCase = !!(m && m.indexOf("i") !== -1);
-      this.multiline = !!(m && m.indexOf("m") !== -1);
+    } else if (typeof regexp === 'string') {
+      this.ignoreCase = !!(m && m.indexOf('i') !== -1);
+      this.multiline = !!(m && m.indexOf('m') !== -1);
     } else {
-      throw Error("Expected a regexp or string");
+      throw Error('Expected a regexp or string');
     }
 
     this.tokens = ret(regexp);
@@ -40,7 +49,7 @@ export default class RandExp {
     // randexp won't actually generate a random amount between min and Infinite
     // instead it will see Infinite as min + 100.
     this.max =
-      typeof regexp !== "string" && (regexp as RandExp).max != null
+      typeof regexp !== 'string' && (regexp as RandExp).max != null
         ? (regexp as RandExp).max
         : RandExp.prototype.max != null
           ? RandExp.prototype.max
@@ -49,11 +58,11 @@ export default class RandExp {
     // This allows expanding to include additional characters
     // for instance: RandExp.defaultRange.add(0, 65535);
     this.defaultRange =
-      typeof regexp !== "string" && (regexp as RandExp).defaultRange
+      typeof regexp !== 'string' && (regexp as RandExp).defaultRange
         ? (regexp as RandExp).defaultRange
         : this.defaultRange.clone();
 
-    if (typeof regexp !== "string" && (regexp as RandExp).randInt) {
+    if (typeof regexp !== 'string' && (regexp as RandExp).randInt) {
       this.randInt = (regexp as RandExp).randInt;
     }
   }
@@ -71,11 +80,11 @@ export default class RandExp {
   _gen(token: Tokens, groups: (string | null)[]): string {
     switch (token.type) {
       case types.ROOT:
-      case types.GROUP:
+      case types.GROUP: {
         if (token.type === types.GROUP) {
           // Ignore lookaheads for now.
           if (token.followedBy || token.notFollowedBy) {
-            return "";
+            return '';
           }
 
           // Insert placeholder until group string is generated.
@@ -84,11 +93,11 @@ export default class RandExp {
           }
         }
 
-        let stack = token.options
+        const stack = token.options
           ? this._randSelect(token.options)
           : token.stack!;
 
-        let str = "";
+        let str = '';
         for (let i = 0, l = stack.length; i < l; i++) {
           str += this._gen(stack[i], groups);
         }
@@ -97,19 +106,21 @@ export default class RandExp {
           groups[(token as any).groupNumber] = str;
         }
         return str;
+      }
 
       case types.POSITION:
         // Do nothing for now.
-        return "";
+        return '';
 
-      case types.SET:
+      case types.SET: {
         const expandedSet = this._expand(token);
         if (!expandedSet.length) {
-          return "";
+          return '';
         }
         return String.fromCodePoint(
           expandedSet.index(this.randInt(0, expandedSet.length - 1)),
         );
+      }
 
       case types.REPETITION: {
         // Randomly generate number between min and max.
@@ -118,7 +129,7 @@ export default class RandExp {
           token.max === Infinity ? token.min + this.max : token.max,
         );
 
-        let str = "";
+        let str = '';
         for (let i = 0; i < randNumber; i++) {
           str += this._gen(token.value, groups);
         }
@@ -127,14 +138,15 @@ export default class RandExp {
       }
 
       case types.REFERENCE:
-        return groups[token.value - 1] || "";
+        return groups[token.value - 1] || '';
 
-      case types.CHAR:
+      case types.CHAR: {
         const code =
           this.ignoreCase && this._randBool()
             ? this._toOtherCase(token.value)
             : token.value;
         return String.fromCodePoint(code);
+      }
     }
   }
 
@@ -167,20 +179,20 @@ export default class RandExp {
    * Expands a token to a DiscontinuousRange of characters which has a
    * length and an index function (for random selecting).
    */
-  _expand(token: Set | Char | Range) {
+  _expand(token: RetSet | Char | Range) {
     if (token.type === types.CHAR) {
       return new DRange(token.value);
     } else if (token.type === types.RANGE) {
       return new DRange(token.from, token.to);
     } else {
-      let drange = new DRange();
+      const drange = new DRange();
       for (let i = 0; i < token.set.length; i++) {
-        let subrange = this._expand(token.set[i]);
+        const subrange = this._expand(token.set[i]);
         drange.add(subrange);
         if (this.ignoreCase) {
           for (let j = 0; j < subrange.length; j++) {
-            let code = subrange.index(j);
-            let otherCaseCode = this._toOtherCase(code);
+            const code = subrange.index(j);
+            const otherCaseCode = this._toOtherCase(code);
             if (code !== otherCaseCode) {
               drange.add(otherCaseCode);
             }
@@ -206,7 +218,8 @@ export default class RandExp {
    * Default range of characters to generate from.
    */
   get defaultRange() {
-    return (this._range = this._range || new DRange(32, 126));
+    this._range = this._range || new DRange(32, 126);
+    return this._range;
   }
 
   set defaultRange(range) {
@@ -217,8 +230,8 @@ export default class RandExp {
    * Enables use of randexp with a shorter call.
    */
   static randexp(regexp: RegExp | string, m?: string) {
-    let randexp;
-    if (typeof regexp === "string") {
+    let randexp: RandExp;
+    if (typeof regexp === 'string') {
       regexp = new RegExp(regexp, m);
     }
 

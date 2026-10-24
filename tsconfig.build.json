@@ -5,7 +5,5 @@
     "sourceMap": true,
     "outDir": "./dist"
   },
-  "files": [
-    "src/randexp.ts"
-  ]
+  "files": ["src/randexp.ts"]
 }

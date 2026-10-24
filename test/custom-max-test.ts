@@ -1,17 +1,17 @@
-import assert from "assert";
-import RandExp, { RandRegExp } from "..";
+import assert from 'assert';
+import RandExp, { type RandRegExp } from '..';
 
-describe("Modify max", () => {
-  it("Should generate infinite repetitionals with new max", () => {
+describe('Modify max', () => {
+  it('Should generate infinite repetitionals with new max', () => {
     let re = new RandExp(/.*/);
     re.max = 0;
     let output = re.gen();
-    assert.equal(output, "");
+    assert.equal(output, '');
 
-    let r = /.*/ as RandRegExp;
+    const r = /.*/ as RandRegExp;
     r.max = 0;
     output = RandExp.randexp(r);
-    assert.equal(output, "");
+    assert.equal(output, '');
 
     const originalMax = RandExp.prototype.max;
     after(() => {
@@ -20,6 +20,6 @@ describe("Modify max", () => {
     RandExp.prototype.max = 0;
     re = new RandExp(/.*/);
     output = re.gen();
-    assert.equal(output, "");
+    assert.equal(output, '');
   });
 });
