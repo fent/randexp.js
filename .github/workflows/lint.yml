@@ -1,0 +1,20 @@
+name: Lint
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: biomejs/setup-biome@v2
+        with:
+          version: 2.5.15
+
+      - name: Run Biome
+        run: biome ci .
