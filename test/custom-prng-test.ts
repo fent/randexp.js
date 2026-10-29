@@ -1,4 +1,4 @@
-import { equal } from 'assert';
+import { equal } from 'node:assert';
 import RandExp, { type RandRegExp } from '..';
 
 // This is a simple "good enough" PRNG.

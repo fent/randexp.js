@@ -1,4 +1,4 @@
-import { ok } from 'assert';
+import { ok } from 'node:assert';
 import RandExp, { type RandRegExp } from '..';
 
 const genMaxChar = (re: RandExp) => {

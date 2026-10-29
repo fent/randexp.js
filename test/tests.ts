@@ -230,6 +230,7 @@ const tests: Record<string, Record<string, Test>> = {
 
   'Back References': {
     '()\\x': {
+      // biome-ignore lint/suspicious/noUselessRegexBackrefs: backreference test fixture
       regexp: [/(\w+)\s+\1/, /(a)(\2\1)/, /(a|b){5}\1/, /(a)(b)\1\2/],
       desc: '"\\x" (where x is a number from 1 to 9) when added to the end of a regular expression pattern allows you to back reference a subpattern within the pattern, so the value of the subpatterns is remembered and used as part of the matching.',
     },

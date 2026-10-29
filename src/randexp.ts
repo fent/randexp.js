@@ -88,14 +88,17 @@ export default class RandExp {
           }
 
           // Insert placeholder until group string is generated.
+          // biome-ignore lint/suspicious/noExplicitAny: dynamic groupNumber property on token
           if (token.remember && (token as any).groupNumber === undefined) {
+            // biome-ignore lint/suspicious/noExplicitAny: dynamic groupNumber property on token
             (token as any).groupNumber = groups.push(null) - 1;
           }
         }
 
         const stack = token.options
           ? this._randSelect(token.options)
-          : token.stack!;
+          : // biome-ignore lint/style/noNonNullAssertion: ret tokens have options or stack
+            token.stack!;
 
         let str = '';
         for (let i = 0, l = stack.length; i < l; i++) {
@@ -103,6 +106,7 @@ export default class RandExp {
         }
 
         if (token.type === types.GROUP && token.remember) {
+          // biome-ignore lint/suspicious/noExplicitAny: dynamic groupNumber property on token
           groups[(token as any).groupNumber] = str;
         }
         return str;
@@ -253,7 +257,7 @@ export default class RandExp {
    * Enables sugary /regexp/.gen syntax.
    */
   static sugar() {
-    (RegExp.prototype as any).gen = function (this: RegExp) {
+    (RegExp.prototype as unknown as RandRegExp).gen = function (this: RegExp) {
       return RandExp.randexp(this);
     };
   }
