@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import RandExp from '..';
+import RandExp from '../src/randexp';
 import tests from './tests';
 
 const match = (regexp: RegExp, str: string, bad: boolean) => {

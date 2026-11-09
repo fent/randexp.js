@@ -1,5 +1,5 @@
 import { equal } from 'node:assert';
-import RandExp, { type RandRegExp } from '..';
+import RandExp, { type RandRegExp } from '../src/randexp';
 
 // This is a simple "good enough" PRNG.
 const initialSeed = Math.random() * 2 ** 32 + Date.now();

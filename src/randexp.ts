@@ -14,14 +14,11 @@ type GroupToken = Group & { groupNumber?: number };
 
 import DRange = require('drange');
 
-export interface RandRegExp extends RegExp {
-  max: number;
-  defaultRange: DRange;
-  randInt(a: number, b: number): number;
-  gen(): string;
-}
+type RandRegExp = RandExp.RandRegExp;
 
-export default class RandExp {
+class RandExp {
+  static RandExp = RandExp;
+  static default = RandExp;
   public ignoreCase: boolean;
   public multiline: boolean;
   public max: number;
@@ -265,4 +262,18 @@ export default class RandExp {
   }
 }
 
+namespace RandExp {
+  export interface RandRegExp extends RegExp {
+    max: number;
+    defaultRange: DRange;
+    randInt(a: number, b: number): number;
+    gen(): string;
+  }
+}
+
+// Statically recognizable exports for Node.js cjs-module-lexer (ESM named import support)
 module.exports = RandExp;
+module.exports.default = RandExp;
+module.exports.RandExp = RandExp;
+
+export = RandExp;

@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import RandExp, { type RandRegExp } from '..';
+import RandExp, { type RandRegExp } from '../src/randexp';
 
 RandExp.sugar();
 

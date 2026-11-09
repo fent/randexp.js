@@ -25,8 +25,9 @@
     "build:browser": "esbuild dist/randexp.js --bundle --minify --format=iife --global-name=RandExp --outfile=dist/randexp.min.js",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
-    "test": "nyc --extension .ts --reporter=lcov --reporter=text-summary npm run test:unit",
-    "test:unit": "mocha --require ts-node/register test/*-test.ts"
+    "test": "nyc --extension .ts --reporter=lcov --reporter=text-summary npm run test:unit && npm run test:package",
+    "test:unit": "mocha --require ts-node/register --ignore test/export-test.ts test/*-test.ts",
+    "test:package": "mocha --require ts-node/register test/export-test.ts"
   },
   "dependencies": {
     "drange": "^2.0.1",
