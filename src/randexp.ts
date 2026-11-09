@@ -1,12 +1,16 @@
 import {
   type Char,
+  type Group,
   type Range,
   type Set as RetSet,
   type Root,
   default as ret,
+  type Token,
   type Tokens,
   types,
 } from 'ret';
+
+type GroupToken = Group & { groupNumber?: number };
 
 import DRange = require('drange');
 
@@ -81,33 +85,31 @@ export default class RandExp {
     switch (token.type) {
       case types.ROOT:
       case types.GROUP: {
+        let groupToken: GroupToken | undefined;
         if (token.type === types.GROUP) {
+          groupToken = token as GroupToken;
           // Ignore lookaheads for now.
-          if (token.followedBy || token.notFollowedBy) {
+          if (groupToken.followedBy || groupToken.notFollowedBy) {
             return '';
           }
 
           // Insert placeholder until group string is generated.
-          // biome-ignore lint/suspicious/noExplicitAny: dynamic groupNumber property on token
-          if (token.remember && (token as any).groupNumber === undefined) {
-            // biome-ignore lint/suspicious/noExplicitAny: dynamic groupNumber property on token
-            (token as any).groupNumber = groups.push(null) - 1;
+          if (groupToken.remember && groupToken.groupNumber === undefined) {
+            groupToken.groupNumber = groups.push(null) - 1;
           }
         }
 
-        const stack = token.options
-          ? this._randSelect(token.options)
-          : // biome-ignore lint/style/noNonNullAssertion: ret tokens have options or stack
-            token.stack!;
+        const stack = (
+          token.options ? this._randSelect(token.options) : token.stack
+        ) as Token[];
 
         let str = '';
         for (let i = 0, l = stack.length; i < l; i++) {
           str += this._gen(stack[i], groups);
         }
 
-        if (token.type === types.GROUP && token.remember) {
-          // biome-ignore lint/suspicious/noExplicitAny: dynamic groupNumber property on token
-          groups[(token as any).groupNumber] = str;
+        if (groupToken?.remember && groupToken.groupNumber !== undefined) {
+          groups[groupToken.groupNumber] = str;
         }
         return str;
       }
