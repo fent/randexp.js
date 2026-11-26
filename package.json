@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "drange": "^2.0.1",
-    "ret": "^0.5.1"
+    "ret": "^0.7.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",

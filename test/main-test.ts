@@ -73,3 +73,28 @@ describe('Followed by groups', () => {
     assert.equal(RandExp.randexp(/hi(?! no one)/), 'hi');
   });
 });
+
+describe('Lazy quantifiers', () => {
+  it('Generates valid matches for lazy repetitions', () => {
+    for (const reg of [/^a+?$/, /^a*?$/, /^a??$/, /^a{2,4}?$/]) {
+      const rand = new RandExp(reg);
+      for (let i = 0; i < 10; i++) {
+        const out = rand.gen();
+        assert.ok(reg.test(out), `'${out}' did not match ${reg}`);
+      }
+    }
+  });
+});
+
+describe('Lowercase and escaped character codes', () => {
+  it('Decodes lowercase hex, unicode, control escapes, and escaped dashes/backslashes', () => {
+    assert.equal(RandExp.randexp(/\x2d/), '-');
+    assert.equal(RandExp.randexp(/\u0061/), 'a');
+    assert.equal(RandExp.randexp(/\cj/), '\n');
+    assert.equal(RandExp.randexp(/\x5c/), '\\');
+    assert.equal(RandExp.randexp(/\\\x41/), '\\A');
+    for (let i = 0; i < 20; i++) {
+      assert.ok(/^[az-]$/.test(RandExp.randexp(/[a\x2dz]/)));
+    }
+  });
+});
